@@ -1,0 +1,16 @@
+@import 'reset';
+@import 'tailwind';
+
+html,
+body {
+    height: 100%;
+}
+
+#root {
+    height: 100%;
+}
+
+.app {
+    font-family: 'Gilroy', sans-serif;
+    height: 100%;
+}
