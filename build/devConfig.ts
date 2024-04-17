@@ -6,20 +6,22 @@ import devPlugins from './devPlugins';
 import devServer from './devServer';
 
 const createConfig = (options: BuildOptions): webpack.Configuration => ({
-	entry: options.paths.entry,
-	mode: options.mode,
-	devtool: options.isDev ? 'inline-source-map': undefined,
-	module: {
-		rules: devRules(options)
-	},
-	resolve: devResolver(options),
-	output: {
-		filename: '[name].[contenthash].js',
-		path: options.paths.build,
-		clean: true
-	},
-	plugins: devPlugins(options),
-	devServer: devServer(options)
+    entry: options.paths.entry,
+    mode: options.mode,
+    devtool: options.isDev ? 'inline-source-map' : undefined,
+    stats: 'errors-only',
+    module: {
+        strictExportPresence: true,
+        rules: devRules(options),
+    },
+    resolve: devResolver(options),
+    output: {
+        filename: '[name].[contenthash].js',
+        path: options.paths.build,
+        clean: true,
+    },
+    plugins: devPlugins(options),
+    devServer: devServer(options),
 });
 
 export default createConfig;

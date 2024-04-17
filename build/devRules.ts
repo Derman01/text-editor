@@ -41,7 +41,12 @@ const devRules = (options: BuildOptions): webpack.RuleSetRule[] => {
         ],
     };
 
-    return [tsLoader, jsLoader, styleLoader];
+    const cssLoader = {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+    };
+
+    return [tsLoader, jsLoader, cssLoader, styleLoader];
 };
 
 export default devRules;
