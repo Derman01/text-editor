@@ -1,16 +1,17 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import {
     ITextEditorProps as IBaseEditorProps,
     createTextEditor,
     useEditor,
 } from 'entities/TextEditor';
-import { demoTextValue } from './const';
 
 interface ITextEditorProps extends IBaseEditorProps<'heading' | 'paragraph'> {}
 
 const TextEditor = createTextEditor<ITextEditorProps>();
 
 const Editor = function () {
+    const editor = useEditor();
+
     const renderElements = useMemo(
         (): ITextEditorProps['renderElements'] => ({
             heading: (props) => {
@@ -42,7 +43,15 @@ const Editor = function () {
         }),
         []
     );
-    const [editor] = useState(() => useEditor());
+
+    const renderLeaf: ITextEditorProps['renderLeaf'] = useCallback((props) => {
+        const { attributes, children, leaf } = props;
+        const isBold = leaf.bold;
+        if (isBold) {
+            return <strong {...attributes} children={children} />;
+        }
+        return <span {...attributes} children={children} />;
+    }, []);
 
     return (
         <div
@@ -53,9 +62,8 @@ const Editor = function () {
             }}
         >
             <TextEditor
-                editor={editor}
                 renderElements={renderElements}
-                initialValue={demoTextValue}
+                renderLeaf={renderLeaf}
             />
         </div>
     );

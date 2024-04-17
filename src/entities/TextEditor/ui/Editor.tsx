@@ -1,14 +1,30 @@
-import { Ref, forwardRef, memo } from 'react';
-import BaseTextEditor from './js/Editor';
-import { ITextEditorProps, TTextEditorRef } from '../types/Editor';
+import { memo } from 'react';
+import {
+    EditorEditable as BaseEditorEditable,
+    EditorProvider as BaseEditorProvider,
+} from './js/Editor';
+import { IEditorProviderProps, ITextEditorProps } from '../types/Editor';
 
-const TextEditor = function <TProps extends ITextEditorProps>(props: TProps) {
-    return <BaseTextEditor {...props} />;
+const EditorEditable = function <TProps extends ITextEditorProps>(
+    props: TProps
+) {
+    return <BaseEditorEditable {...props} />;
+};
+
+const EditorProvider = function <TProps extends IEditorProviderProps>(
+    props: TProps
+) {
+    return <BaseEditorProvider {...props} />;
 };
 
 /**
  * Метод получения модели редактора с типом
  */
-export const createTextEditor = function <TProps extends ITextEditorProps>() {
-    return memo(TextEditor<TProps>);
+const createTextEditor = function <TProps extends ITextEditorProps>() {
+    return memo(EditorEditable<TProps>);
 };
+
+const createEditorProvider = function <TProps extends IEditorProviderProps>() {
+    return memo(EditorProvider<TProps>);
+};
+export { createTextEditor, createEditorProvider };

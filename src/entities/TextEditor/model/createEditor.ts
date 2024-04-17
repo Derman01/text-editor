@@ -1,9 +1,10 @@
-import { useState } from 'react';
-import { createEditor } from 'slate';
-import { withReact } from 'slate-react';
+import { createEditor as defaultCreateEditor } from 'slate';
+import { useSlate, withReact } from 'slate-react';
 import { withHistory } from 'slate-history';
 
 /**
  * Метод создания модели редактора
  */
-export const useEditor = () => withReact(withHistory(createEditor()));
+export const createEditor = () => withReact(withHistory(defaultCreateEditor()));
+
+export const useEditor = useSlate;

@@ -3,9 +3,12 @@
  */
 
 import { BaseEditor } from 'slate';
+import { HistoryEditor } from 'slate-history';
 import { ReactEditor } from 'slate-react';
 
-export type TTypeLeaf<TypesLeaf extends string = string> = TypesLeaf | 'paragraph';
+export type TTypeLeaf<TypesLeaf extends string = string> =
+    | TypesLeaf
+    | 'paragraph';
 
 interface ILeafDefault<
     TypesLeaf extends TTypeLeaf = TTypeLeaf,
@@ -69,6 +72,9 @@ export type TTextData<
  */
 interface IRenderBlockProps {
     attributes: object;
+    leaf?: {
+        bold: boolean;
+    };
     children: JSX.Element;
 }
 
@@ -81,15 +87,21 @@ export type TRenderBlock<TypeBlock extends TTypeBlock = TTypeBlock> = {
  */
 export interface ITextEditorProps<
     TypesBlock extends TTypeBlock = TTypeBlock,
-    TypesLeaf extends TTypeLeaf = TTypeLeaf,
-    TProps extends object = {}
 > {
     editor: BaseEditor & ReactEditor;
-    initialValue?: TTextData<TypesBlock, TypesLeaf, TProps>;
     renderElements?: TRenderBlock<TypesBlock>;
     onKeyDown?: (event: Event) => void;
-    renderLeaf?: () => JSX.Element;
+    renderLeaf?: (props: IRenderBlockProps) => JSX.Element;
     insertBreak?: () => void;
 }
 
-export type TTextEditorRef = BaseEditor & ReactEditor;
+export interface IEditorProviderProps<
+    TypesBlock extends TTypeBlock = TTypeBlock,
+    TypesLeaf extends TTypeLeaf = TTypeLeaf,
+    TProps extends object = {}
+> {
+    initialValue?: TTextData<TypesBlock, TypesLeaf, TProps>;
+    children: JSX.Element[];
+}
+
+export type TEditor = BaseEditor & HistoryEditor & ReactEditor;

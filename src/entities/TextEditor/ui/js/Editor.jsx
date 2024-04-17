@@ -1,5 +1,6 @@
-import React, { useCallback, memo, forwardRef } from 'react';
-import { Slate, Editable } from 'slate-react';
+import { createEditor } from '../../model/createEditor';
+import React, { useCallback, useState } from 'react';
+import { Slate, Editable, useSlate } from 'slate-react';
 
 const defaultInitialValue = [
     {
@@ -8,14 +9,10 @@ const defaultInitialValue = [
     },
 ];
 
-const TextEditor = function (props) {
-    const {
-        onKeyDown,
-        renderLeaf,
-        renderElements,
-        initialValue = defaultInitialValue,
-        editor,
-    } = props;
+const EditorEditable = function (props) {
+    const { onKeyDown, renderLeaf, renderElements } = props;
+
+    const editor = useSlate();
 
     editor.insertBreak = useCallback(() => {
         editor.insertNode({
@@ -48,15 +45,27 @@ const TextEditor = function (props) {
     }, []);
 
     return (
-        <div>
-            <Slate editor={editor} initialValue={initialValue}>
-                <Editable
-                    onKeyDown={onKeyDownHandler}
-                    renderElement={renderElementHandler}
-                    renderLeaf={renderLeafHandler}
-                />
-            </Slate>
-        </div>
+        <Editable
+            onKeyDown={onKeyDownHandler}
+            renderElement={renderElementHandler}
+            renderLeaf={renderLeafHandler}
+            spellCheck
+            autoFocus
+        />
+    );
+};
+
+const EditorProvider = function ({
+    initialValue = defaultInitialValue,
+    children,
+}) {
+    const [editor] = useState(createEditor());
+    return (
+        <Slate
+            editor={editor}
+            initialValue={initialValue}
+            children={children}
+        />
     );
 };
 
@@ -68,4 +77,4 @@ const Leaf = (props) => {
     return <span {...props.attributes}>{props.children}</span>;
 };
 
-export default memo(forwardRef(TextEditor));
+export { EditorProvider, EditorEditable };

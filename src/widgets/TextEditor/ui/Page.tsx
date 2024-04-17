@@ -3,7 +3,7 @@ import './styles/index.scss';
 import {
     ITextEditorProps as IBaseEditorProps,
     createTextEditor,
-    useEditor,
+    createEditor,
 } from 'entities/TextEditor';
 
 interface ITextEditorProps extends IBaseEditorProps<'heading'> {}
