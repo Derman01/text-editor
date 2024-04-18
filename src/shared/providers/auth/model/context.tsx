@@ -1,14 +1,14 @@
 import { createContext } from 'react';
 
-export type User = {
-    name: string;
-    login: string;
+export type UserInfo = {
+    user: object;
+    token: string;
 };
 
 export type AuthContextProps = {
-    user?: User;
-    setUser?: (User) => void;
-    isGuest?: boolean;
+    userInfo?: UserInfo;
+    setUser?: (userInfo: UserInfo) => void;
+    isGuest: boolean;
 };
 
 const initialProps: AuthContextProps = {

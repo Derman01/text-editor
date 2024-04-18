@@ -1,25 +1,14 @@
-import { $api } from './const';
+import { $api, createQueryParams } from './const';
 
 type LoginParams = {
     email: string;
     password: string;
 };
 
-const parsed = (data: object) => {
-    return (
-        '?' +
-        Object.entries(data)
-            .map(([name, value]) => {
-                return `${name}=${value}`;
-            })
-            .join('&')
-    );
-};
-
 const login = ({ email, password }: LoginParams) => {
     return $api.post(
         `/auth/login` +
-            parsed({
+            createQueryParams({
                 email,
                 password,
             })
@@ -35,7 +24,7 @@ type RegistrationParams = {
 const registration = ({ email, name, password }: RegistrationParams) => {
     return $api.post(
         '/auth/register' +
-            parsed({
+            createQueryParams({
                 email,
                 name,
                 password,

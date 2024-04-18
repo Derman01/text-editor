@@ -1,30 +1,35 @@
-import { FunctionControl } from 'shared/types/controls';
 import { AuthContext, AuthContextProps } from './context';
-import { useCallback, useLayoutEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
-const LOCAL_STORAGE_FIELD = 'UserInfo';
+const LOCAL_STORAGE_USER = 'User';
+const LOCAL_STORAGE_ACCESS_TOKEN = 'ACCESS_TOKEN';
 
-const getUserFromLocalStorage = () => {
-    const userString = localStorage.getItem(LOCAL_STORAGE_FIELD);
-    if (userString) {
-        return JSON.parse(userString) as AuthContextProps['user'];
+const getUserInfoFromLocalStorage = () => {
+    const userString = localStorage.getItem(LOCAL_STORAGE_USER);
+    const token = localStorage.getItem(LOCAL_STORAGE_ACCESS_TOKEN);
+    if (token) {
+        return {
+            user: JSON.parse(userString),
+            token,
+        };
     }
     return null;
 };
 
 const AuthProvider = function ({ children }: { children: JSX.Element }): JSX.Element {
-    const [user, setUser] = useState(getUserFromLocalStorage());
-    const isGuest = useMemo(() => !user, [user]);
+    const [userInfo, setUserInfo] = useState(getUserInfoFromLocalStorage());
+    const isGuest = useMemo(() => !userInfo?.token, [userInfo?.token]);
 
-    const setttingUser = useCallback((user: AuthContextProps['user']) => {
-        localStorage.setItem(LOCAL_STORAGE_FIELD, JSON.stringify(user));
-        setUser(user);
+    const setttingUser = useCallback((userInfo: AuthContextProps['userInfo']) => {
+        localStorage.setItem(LOCAL_STORAGE_USER, JSON.stringify(userInfo?.user));
+        localStorage.setItem(LOCAL_STORAGE_ACCESS_TOKEN, userInfo.token);
+        setUserInfo(userInfo);
     }, []);
 
     const value: AuthContextProps = useMemo(() => {
         return {
             isGuest,
-            user,
+            userInfo,
             setUser: setttingUser,
         };
     }, []);

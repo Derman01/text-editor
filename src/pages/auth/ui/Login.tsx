@@ -2,24 +2,30 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
-import { Button, Grid, Link } from '@mui/material';
-import { useCallback, useRef, SyntheticEvent } from 'react';
+import { Button, Grid, Link, Tab } from '@mui/material';
+import { useCallback, useRef, SyntheticEvent, useState } from 'react';
 import { api } from 'shared/api';
+import { TabContext, TabList } from '@mui/lab';
+import { redirect } from 'react-router-dom';
+import { useAuth } from 'shared/providers/auth';
 
 const LoginPage = function (): JSX.Element {
+    const [tab, setTab] = useState('login');
+    const { setUser } = useAuth();
+
     const handleSubmit = useCallback((event: SyntheticEvent) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         const email = data.get('email') as string;
         const password = data.get('password') as string;
         api.auth
-            .registration({
+            .login({
                 email,
-                name: 'denis',
                 password,
             })
-            .then((data) => {
-                console.log(data);
+            .then(({ data }) => {
+                setUser(data);
+                window.location.replace('/');
             });
     }, []);
 
@@ -68,7 +74,14 @@ const LoginPage = function (): JSX.Element {
 
                     <Grid container alignItems={'flex-end'}>
                         <Grid item xs alignItems={'flex-end'}>
-                            <Link variant="body2">{'Регистрация'}</Link>
+                            <Link
+                                sx={{
+                                    cursor: 'pointer',
+                                }}
+                                variant="body2"
+                            >
+                                {'Регистрация'}
+                            </Link>
                         </Grid>
                         <Grid item>
                             <Button type="submit" variant="contained">
