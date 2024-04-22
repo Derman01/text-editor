@@ -39,4 +39,8 @@ const createQueryParams = (data: object) => {
     );
 };
 
-export { $api, createQueryParams };
+const createPostRequest = (path: string, data: object) => {
+    return $api.post(path + createQueryParams(data));
+};
+
+export { $api, createQueryParams, createPostRequest };

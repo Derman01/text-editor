@@ -1,18 +1,7 @@
 import { AuthPage } from 'pages/auth';
 import { PageConstructor } from 'pages/constructor';
-import { useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
-import { api } from 'shared/api';
+import { DocumentPage } from 'pages/documents';
 import { PAGES, PAGE_PATHS, PageConfigs } from 'shared/config/page';
-
-const MainPage = () => {
-    useEffect(() => {
-        api.auth.getTemplates().then((data) => {
-            console.log(data);
-        });
-    }, []);
-    return <div>Main Page</div>;
-};
 
 export const PAGE_CONFIGS: PageConfigs = {
     [PAGES.Auth]: {
@@ -23,7 +12,7 @@ export const PAGE_CONFIGS: PageConfigs = {
     [PAGES.Main]: {
         path: PAGE_PATHS.main,
         title: 'Главная страница',
-        element: <MainPage />,
+        element: <DocumentPage />,
     },
     [PAGES.Constructor]: {
         path: PAGE_PATHS.constructor,
