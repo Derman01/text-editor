@@ -32,9 +32,14 @@ const registration = ({ email, name, password }: RegistrationParams) => {
     );
 };
 
+const getTemplates = () => {
+    return $api.get('/templates');
+};
+
 const authApi = {
     login,
     registration,
+    getTemplates
 };
 
 export { authApi };

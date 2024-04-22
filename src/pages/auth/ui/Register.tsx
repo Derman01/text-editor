@@ -4,10 +4,10 @@ import TextField from '@mui/material/TextField';
 import { Button, Grid } from '@mui/material';
 import { useCallback, SyntheticEvent } from 'react';
 import { api } from 'shared/api';
-import { TabContext, TabPanel } from '@mui/lab';
+import { TabPanel } from '@mui/lab';
 import { useAuth } from 'shared/providers/auth';
 
-const LoginPage = function (): JSX.Element {
+const Register = function (): JSX.Element {
     const { setUser } = useAuth();
 
     const handleSubmit = useCallback((event: SyntheticEvent) => {
@@ -15,9 +15,11 @@ const LoginPage = function (): JSX.Element {
         const data = new FormData(event.currentTarget);
         const email = data.get('email') as string;
         const password = data.get('password') as string;
+        const name = data.get('name') as string;
         api.auth
-            .login({
+            .registration({
                 email,
+                name,
                 password,
             })
             .then(({ data }) => {
@@ -25,13 +27,22 @@ const LoginPage = function (): JSX.Element {
                 window.location.replace('/');
             });
     }, []);
-
     return (
-        <TabPanel value="login">
+        <TabPanel value="register">
             <Typography component="h1" variant="h5">
-                Авторизация
+                Регистрация
             </Typography>
             <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+                <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="name"
+                    label="Имя"
+                    name="name"
+                    autoComplete="name"
+                    autoFocus
+                />
                 <TextField
                     margin="normal"
                     required
@@ -57,7 +68,7 @@ const LoginPage = function (): JSX.Element {
                     <Grid item xs alignItems={'flex-end'}></Grid>
                     <Grid item>
                         <Button type="submit" variant="contained">
-                            Войти
+                            Зарегестрировать
                         </Button>
                     </Grid>
                 </Grid>
@@ -66,4 +77,4 @@ const LoginPage = function (): JSX.Element {
     );
 };
 
-export default LoginPage;
+export default Register;

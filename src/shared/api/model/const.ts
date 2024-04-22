@@ -20,6 +20,9 @@ $api.interceptors.response.use(
         return response;
     },
     (error) => {
+        if (error.response.status === 401) {
+            window.location.replace('/auth');
+        }
         console.log(error);
         throw error;
     }

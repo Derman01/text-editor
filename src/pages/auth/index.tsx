@@ -1,1 +1,1 @@
-export { LoginPage } from './ui/Login.async';
+export { AuthPage } from './ui/Panel.async';
