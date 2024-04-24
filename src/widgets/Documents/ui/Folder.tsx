@@ -53,7 +53,7 @@ const DocumentsFolder = function (): JSX.Element {
                 <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
                     {items.map((item) => (
                         <ListItemButton key={item.id} alignItems="flex-start">
-                            <ListItemText primary={item.name} secondary={'01.04.2024'} />
+                            <ListItemText primary={item.name} />
                         </ListItemButton>
                     ))}
                 </List>

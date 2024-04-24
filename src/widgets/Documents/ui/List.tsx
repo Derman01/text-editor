@@ -21,13 +21,22 @@ const DocumentList = function (): JSX.Element {
     const [items, setItems] = useState<TypeItem[]>([]);
 
     useLayoutEffect(() => {
-        api.documents.getAll().then(({ data }) => {
-            setItems(data.data);
+        api.documents.getAll<TypeItem[]>().then((items) => {
+            setItems(items.reverse());
         });
     }, []);
 
     const onAddClickHandler = useCallback(() => {
-        api.documents.create();
+        api.documents.create().then((item: TypeItem) => {
+            setItems((items) => [
+                {
+                    id: item.id,
+                    name: item.name,
+                    path: item.path,
+                },
+                ...items,
+            ]);
+        });
     }, []);
 
     return (
@@ -35,6 +44,7 @@ const DocumentList = function (): JSX.Element {
             sx={{
                 display: 'flex',
                 flexDirection: 'column',
+                height: '100%',
             }}
         >
             <Box

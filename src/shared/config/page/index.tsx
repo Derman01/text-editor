@@ -1,3 +1,5 @@
+import { RouteObject } from 'react-router-dom';
+
 export enum PAGES {
     Main = 'main',
     Constructor = 'constructor',
@@ -7,15 +9,13 @@ export enum PAGES {
 
 export const PAGE_PATHS: Record<PAGES, string> = {
     [PAGES.Main]: '/',
-    [PAGES.Constructor]: '/constructor',
+    [PAGES.Constructor]: '/constructor/:id',
     [PAGES.Auth]: '/auth',
     [PAGES.NotFound]: '*',
 };
 
-export type PageConfig = {
-    path: string;
+export type PageConfig = RouteObject & {
     title: string;
-    element: JSX.Element;
 };
 
 export type PageConfigs = Record<PAGES, PageConfig>;

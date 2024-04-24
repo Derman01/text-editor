@@ -18,6 +18,7 @@ const createConfig = (options: BuildOptions): webpack.Configuration => ({
     output: {
         filename: '[name].[contenthash].js',
         path: options.paths.build,
+        publicPath: '/',
         clean: true,
     },
     plugins: devPlugins(options),
