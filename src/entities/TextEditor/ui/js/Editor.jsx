@@ -17,7 +17,7 @@ const EditorEditable = function (props) {
     editor.insertBreak = useCallback(() => {
         editor.insertNode({
             type: 'paragraph',
-            children: [{ text: '' }],
+            children: [{ text: '', placeholder: 'Параграф' }],
         });
     }, [editor]);
 
@@ -55,18 +55,9 @@ const EditorEditable = function (props) {
     );
 };
 
-const EditorProvider = function ({
-    initialValue = defaultInitialValue,
-    children,
-}) {
+const EditorProvider = function ({ initialValue = defaultInitialValue, children }) {
     const [editor] = useState(createEditor());
-    return (
-        <Slate
-            editor={editor}
-            initialValue={initialValue}
-            children={children}
-        />
-    );
+    return <Slate editor={editor} initialValue={initialValue} children={children} />;
 };
 
 const DefaultElement = (props) => {

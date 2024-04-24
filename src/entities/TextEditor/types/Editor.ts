@@ -73,6 +73,8 @@ export type TTextData<
 interface IRenderBlockProps {
     attributes: object;
     leaf?: {
+        text?: string;
+        placeholder?: string;
         bold: boolean;
     };
     children: JSX.Element;

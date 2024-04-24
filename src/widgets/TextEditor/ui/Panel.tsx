@@ -11,10 +11,7 @@ const Panel = function () {
     return (
         <div>
             <ButtonGroup>
-                <Button
-                    variant={isBold ? 'contained' : 'outlined'}
-                    onClick={toggleBold}
-                >
+                <Button variant={isBold ? 'contained' : 'outlined'} onClick={toggleBold}>
                     BOLD
                 </Button>
             </ButtonGroup>
@@ -66,10 +63,9 @@ const useHeading = () => {
                         type: 'heading',
                         children: [{ text: '', placeholder: 'Заголовок' }],
                     },
-                    { at: next }
+                    { at: next, select: true }
                 );
 
-                // Put cursor in the newly created block.
                 Transforms.select(editor, next);
                 Transforms.collapse(editor);
 

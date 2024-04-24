@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { Fragment, useCallback, useMemo } from 'react';
 import {
     ITextEditorProps as IBaseEditorProps,
     createTextEditor,
@@ -47,10 +47,30 @@ const Editor = function () {
     const renderLeaf: ITextEditorProps['renderLeaf'] = useCallback((props) => {
         const { attributes, children, leaf } = props;
         const isBold = leaf.bold;
+
+        const resultChildren = (
+            <Fragment>
+                <span
+                    data-slate-placeholder={true}
+                    contentEditable={false}
+                    style={{
+                        position: 'absolute',
+                        left: 0,
+                        right: 0,
+                        pointerEvents: 'none',
+                        userSelect: 'none',
+                        opacity: '0.333',
+                    }}
+                >
+                    {leaf.text ? '' : leaf.placeholder}
+                </span>
+                {children}
+            </Fragment>
+        );
         if (isBold) {
-            return <strong {...attributes} children={children} />;
+            return <strong {...attributes} children={resultChildren} />;
         }
-        return <span {...attributes} children={children} />;
+        return <span {...attributes} children={resultChildren} />;
     }, []);
 
     return (
@@ -61,10 +81,7 @@ const Editor = function () {
                 fontSize: '14pt',
             }}
         >
-            <TextEditor
-                renderElements={renderElements}
-                renderLeaf={renderLeaf}
-            />
+            <TextEditor renderElements={renderElements} renderLeaf={renderLeaf} />
         </div>
     );
 };
