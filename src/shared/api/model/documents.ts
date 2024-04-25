@@ -17,8 +17,13 @@ const create = <T>(): Promise<T> => {
     }) as Promise<T>;
 };
 
+const get = <T>(id: string): Promise<T> => {
+    return $api.get('documents/' + id);
+};
+
 const documentsApi = {
     getAll,
+    get,
     create,
 };
 

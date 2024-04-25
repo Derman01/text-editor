@@ -64,7 +64,7 @@ export class ObjectMeta<
         return this.clone({ attributes });
     }
 
-    getAttributes(): ObjectMetaAttributes<RuntimeInterface> {
+    getAttributes(): ObjectMeta | ObjectMetaAttributes<RuntimeInterface> {
         return this._attributes;
     }
 

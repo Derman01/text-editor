@@ -16,11 +16,20 @@ interface ISelectorEditor<ValueType extends string | number = string> {
 
 const SelectorEditor = function (props: ISelectorEditor): JSX.Element {
     const { onChange, value, label, items } = props;
-    const onChangeHandler = useCallback((_, value) => {
-        onChange(value);
-    }, []);
+    const onChangeHandler = useCallback(
+        (_, { props }) => {
+            onChange(props.value);
+        },
+        [onChange]
+    );
     return (
-        <Select value={value} label={label} onChange={onChangeHandler}>
+        <Select
+            variant={'standard'}
+            fullWidth={true}
+            value={value}
+            label={label}
+            onChange={onChangeHandler}
+        >
             {items.map((item) => (
                 <MenuItem key={item.id} value={item.value}>
                     {item.title}

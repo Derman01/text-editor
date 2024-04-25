@@ -62,14 +62,26 @@ const DocumentList = function (): JSX.Element {
             <ScrollContainer>
                 <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
                     {items.map((item) => (
-                        <ListItemButton key={item.id} alignItems="flex-start">
-                            <ListItemText primary={item.name} secondary={'01.04.2024'} />
-                            <More items={moreMenuItems} />
-                        </ListItemButton>
+                        <Item item={item} />
                     ))}
                 </List>
             </ScrollContainer>
         </Box>
+    );
+};
+
+const Item = function ({ item }: { item: TypeItem }): JSX.Element {
+    const actionHandler: MoreProps['actionHandler'] = useCallback((action) => {
+        if (action.key === 'open') {
+            window.open(`/constructor/${item.id}`);
+        }
+    }, []);
+
+    return (
+        <ListItemButton key={item.id} alignItems="flex-start">
+            <ListItemText primary={item.name} secondary={'01.04.2024'} />
+            <More actionHandler={actionHandler} items={moreMenuItems} />
+        </ListItemButton>
     );
 };
 
@@ -97,22 +109,22 @@ const moreMenuItems: MoreProps['items'] = [
         handler: () => {},
     },
     {
-        key: 'rights',
+        key: 'clone',
         title: 'Дублировать',
         handler: () => {},
     },
     {
-        key: 'rights',
+        key: 'select',
         title: 'Выбрать несколько',
         handler: () => {},
     },
     {
-        key: 'rights',
+        key: 'move',
         title: 'Переместить',
         handler: () => {},
     },
     {
-        key: 'rights',
+        key: 'delete',
         title: 'Удалить',
         handler: () => {},
     },

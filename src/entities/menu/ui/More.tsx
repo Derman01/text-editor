@@ -10,6 +10,7 @@ interface Item {
 
 export interface Props {
     items: Item[];
+    actionHandler: (item: Item) => void;
 }
 
 const More = function (props: Props): JSX.Element {
@@ -26,8 +27,8 @@ const More = function (props: Props): JSX.Element {
 
     const onItemClick = useCallback((item: Item) => {
         handleClose();
-        item.handler();
-    }, []);
+        props.actionHandler(item);
+    }, [props.actionHandler]);
 
     return (
         <div>

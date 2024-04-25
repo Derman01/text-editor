@@ -1,55 +1,80 @@
-import { Meta } from 'shared/types/meta';
-import { HeadingMeta } from '../model/widgets';
+import { Box, Button, Typography } from '@mui/material';
+import { BoxShadow } from 'entities/box';
+import { useTemplateContext } from '../model/context/Template';
 import { useCallback, useState } from 'react';
-
-const metaWidgets = HeadingMeta;
-
-const Editor = function ({
-    meta,
-    value,
-    name,
-    onChange,
-}: {
-    meta: Meta;
-    value: unknown;
-    name: string;
-    onChange: (name: string, value: unknown) => void;
-}): JSX.Element {
-    const editor = meta.getEditor();
-    const onChangeHandler = useCallback((value: unknown) => {
-        onChange(name, value);
-    }, []);
-    return (
-        <div key={meta.getId()}>
-            {meta.getTitle()}:{' '}
-            {<editor.component value={value} onChange={onChangeHandler} {...editor.properties} />}
-        </div>
-    );
-};
+import { PopupSettings } from './PopupSettings';
+import { HeadingMeta } from '../model/widgets';
+import { ObjectMeta } from 'shared/types/meta';
 
 const Content = function (): JSX.Element {
-    const [value, setValue] = useState({});
+    const { template, update } = useTemplateContext();
+    const [isOpen, setIsOpen] = useState(false);
+    const [selectedWidget, setSelectedWidget] = useState('null');
+    const [meta, setMeta] = useState<ObjectMeta>();
+    const [value, setValue] = useState();
+    const [title, setTitle] = useState('');
 
-    const onChange = useCallback((name: string, value: unknown) => {
-        setValue((oldValue) => ({
-            ...oldValue,
-            [name]: value,
-        }));
+    const openHeadingSettings = useCallback(() => {
+        setIsOpen(true);
+        setSelectedWidget('heading1');
+        setMeta(HeadingMeta);
+        setValue(template.heading1);
     }, []);
+
+    const onChangeHandler = useCallback((newValue: object) => {}, []);
+
     return (
         <div>
-            Редактирование
-            {Object.entries(metaWidgets.getAttributes()).map(([name, meta]) => {
-                return (
-                    <Editor
-                        name={name}
-                        key={name}
-                        value={value[name]}
-                        meta={meta}
-                        onChange={onChange}
-                    />
-                );
-            })}
+            <BoxShadow padding={1}>
+                <Button>
+                    <Typography>Настройки страниц</Typography>
+                </Button>
+            </BoxShadow>
+            <BoxShadow padding={2} mt={2}>
+                <Typography variant="h6">Настройки текстовых элементов ввода</Typography>
+                <Box display={'flex'} flexDirection={'column'} alignItems={'flex-start'}>
+                    <Button>
+                        <Typography>Параграф</Typography>
+                    </Button>
+                    <Button>
+                        <Typography>Список</Typography>
+                    </Button>
+                    <Button>
+                        <Typography>Нумерованный список</Typography>
+                    </Button>
+                    <Button>
+                        <Typography>Изображение</Typography>
+                    </Button>
+                    <Button>
+                        <Typography>Таблица</Typography>
+                    </Button>
+                    <Box display={'flex'}>
+                        <Button onClick={openHeadingSettings}>
+                            <Typography>Заголовок 1</Typography>
+                        </Button>
+                        <Button>
+                            <Typography>Заголовок 2</Typography>
+                        </Button>
+                        <Button>
+                            <Typography>Заголовок 3</Typography>
+                        </Button>
+                        <Button>
+                            <Typography>Заголовок 4</Typography>
+                        </Button>
+                        <Button>
+                            <Typography>Заголовок 5</Typography>
+                        </Button>
+                    </Box>
+                </Box>
+                <PopupSettings
+                    handleClose={() => setIsOpen(false)}
+                    key={selectedWidget}
+                    meta={meta}
+                    open={isOpen}
+                    value={value}
+                    onChange={onChangeHandler}
+                />
+            </BoxShadow>
         </div>
     );
 };
