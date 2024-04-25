@@ -22,8 +22,8 @@ const Register = function (): JSX.Element {
                 name,
                 password,
             })
-            .then(({ data }) => {
-                setUser(data);
+            .then((user) => {
+                setUser(user);
                 window.location.replace('/');
             });
     }, []);

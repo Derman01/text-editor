@@ -22,24 +22,30 @@ type RegistrationParams = {
 };
 
 const registration = ({ email, name, password }: RegistrationParams) => {
-    return $api.post(
-        '/auth/register' +
-            createQueryParams({
-                email,
-                name,
-                password,
-            })
-    );
+    return $api
+        .post(
+            '/auth/register' +
+                createQueryParams({
+                    email,
+                    name,
+                    password,
+                })
+        )
+        .then((data) => {
+            return data;
+        });
 };
 
 const getTemplates = () => {
-    return $api.get('/templates');
+    return $api.get('/templates').then((data) => {
+        return data;
+    });
 };
 
 const authApi = {
     login,
     registration,
-    getTemplates
+    getTemplates,
 };
 
 export { authApi };

@@ -20,8 +20,8 @@ const LoginPage = function (): JSX.Element {
                 email,
                 password,
             })
-            .then(({ data }) => {
-                setUser(data);
+            .then((user) => {
+                setUser(user);
                 window.location.replace('/');
             });
     }, []);

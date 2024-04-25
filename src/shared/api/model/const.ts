@@ -17,7 +17,7 @@ $api.interceptors.request.use((request) => {
 
 $api.interceptors.response.use(
     (response) => {
-        return response.data.data as any;
+        return response.data as any;
     },
     (error) => {
         if (error.response.status === 401) {
