@@ -11,7 +11,9 @@ const $api = axios.create({
 
 $api.interceptors.request.use((request) => {
     const accessToken = localStorage.getItem('ACCESS_TOKEN');
-    request.headers.Authorization = `Bearer ${accessToken}`;
+    if (accessToken) {
+        request.headers.Authorization = `Bearer ${accessToken}`;
+    }
     return request;
 });
 
@@ -21,7 +23,9 @@ $api.interceptors.response.use(
     },
     (error) => {
         if (error.response.status === 401) {
-            window.location.replace('/auth');
+            if (window.location.pathname !== '/auth') {
+                window.location.replace('/auth');
+            }
         }
         console.log(error);
         throw error;
