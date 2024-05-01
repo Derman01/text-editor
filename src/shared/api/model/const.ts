@@ -7,6 +7,10 @@ const $api = axios.create({
     headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
+        Connection: 'keep-alive',
+        Accept: 'application/json, text/plain',
+        'Accept-Encoding': 'gzip, deflate',
+        'Keep-Alive': 'timeout=5, max=100',
     },
 });
 
