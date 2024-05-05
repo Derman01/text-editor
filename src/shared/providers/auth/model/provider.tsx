@@ -7,7 +7,7 @@ const LOCAL_STORAGE_ACCESS_TOKEN = 'ACCESS_TOKEN';
 const getUserInfoFromLocalStorage = () => {
     const userString = localStorage.getItem(LOCAL_STORAGE_USER);
     const token = localStorage.getItem(LOCAL_STORAGE_ACCESS_TOKEN);
-    if (token) {
+    if (token && userString) {
         return {
             user: JSON.parse(userString),
             token,

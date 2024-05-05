@@ -10,23 +10,6 @@ import LoginPage from './Login';
 
 const Panel = function (): JSX.Element {
     const [tab, setTab] = useState<'login' | 'register'>('login');
-    const { setUser } = useAuth();
-
-    const handleSubmit = useCallback((event: SyntheticEvent) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        const email = data.get('email') as string;
-        const password = data.get('password') as string;
-        api.auth
-            .login({
-                email,
-                password,
-            })
-            .then(({ data }) => {
-                setUser(data);
-                window.location.replace('/');
-            });
-    }, []);
 
     return (
         <Container

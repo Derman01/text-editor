@@ -6,13 +6,18 @@ type LoginParams = {
 };
 
 const login = ({ email, password }: LoginParams) => {
-    return $api.post(
-        `/auth/login` +
-            createQueryParams({
-                email,
-                password,
-            })
-    );
+    return $api
+        .post(
+            `/auth/login` +
+                createQueryParams({
+                    email,
+                    password,
+                })
+        )
+        .catch((error) => {
+            alert('Ошибка авторизации');
+            return Promise.reject(error);
+        });
 };
 
 type RegistrationParams = {

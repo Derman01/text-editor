@@ -23,7 +23,8 @@ const LoginPage = function (): JSX.Element {
             .then((user) => {
                 setUser(user);
                 window.location.replace('/');
-            });
+            })
+            .catch(() => {});
     }, []);
 
     return (

@@ -2,9 +2,9 @@ import { lazy } from 'react';
 import { ITabConfig, TABS_ID } from '../types';
 
 const Layout = lazy(() =>
-    import('widgets/TextEditor').then((textEditor) => {
+    import('widgets/PlateEditor').then((plateEditor) => {
         return {
-            default: textEditor.Layout,
+            default: plateEditor.Editor,
         };
     })
 );
