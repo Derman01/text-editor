@@ -1,1 +1,1 @@
-export { Editor } from './ui/Editor';
+export { PlateEditor as Editor } from './ui/Editor';

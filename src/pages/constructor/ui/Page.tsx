@@ -11,28 +11,28 @@ import { TemplateProvider } from 'widgets/StyleSettings';
 
 const Page = function () {
     const { id } = useParams();
-    const [documentInfo, setDocumentInfo] = useState<IDocumentData>(null);
+    // const [documentInfo, setDocumentInfo] = useState<IDocumentData>(null);
 
-    useEffect(() => {
-        api.documents.get<IDocumentData>(id).then((document) => {
-            setDocumentInfo(document);
-        });
-    }, [id]);
+    // useEffect(() => {
+    //     api.documents.get<IDocumentData>(id).then((document) => {
+    //         setDocumentInfo(document);
+    //     });
+    // }, [id]);
 
-    if (!documentInfo) {
-        return <span>Загрузка...</span>;
-    }
+    // if (!documentInfo) {
+    //     return <span>Загрузка...</span>;
+    // }
 
     return (
-        <TemplateProvider template={documentInfo.template}>
+        // <TemplateProvider template={documentInfo.template}>
             <TabProvider>
                 <div className={classes.page}>
                     <Header />
                     <Content />
                 </div>
             </TabProvider>
-        </TemplateProvider>
+        // </TemplateProvider>
     );
 };
 
-export default withAuth(Page);
+export default Page;
