@@ -40,8 +40,8 @@ export function PlateEditor() {
                     <Editor autoFocus />
                 </Box>
                 {/* <FloatingToolbar>
-                <FloatingToolbarButtons />
-            </FloatingToolbar> */}
+                    <FloatingToolbarButtons />
+                </FloatingToolbar> */}
             </Box>
         </Plate>
     );

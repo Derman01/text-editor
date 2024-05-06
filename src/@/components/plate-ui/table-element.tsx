@@ -152,7 +152,7 @@ export const TableFloatingToolbar = withRef<typeof PopoverContent>(
 
     const bordersContent = collapsed && (
       <>
-        <DropdownMenu modal={false}>
+        {/* <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" isMenu>
               <Icons.borderAll className="mr-2 size-4" />
@@ -163,11 +163,11 @@ export const TableFloatingToolbar = withRef<typeof PopoverContent>(
           <DropdownMenuPortal>
             <TableBordersDropdownMenuContent />
           </DropdownMenuPortal>
-        </DropdownMenu>
+        </DropdownMenu> */}
 
         <Button contentEditable={false} variant="ghost" isMenu {...buttonProps}>
           <Icons.delete className="mr-2 size-4" />
-          Delete
+          Удалить
         </Button>
       </>
     );
