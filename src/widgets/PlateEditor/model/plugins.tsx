@@ -9,6 +9,7 @@ import {
     ELEMENT_H4,
     ELEMENT_H5,
     ELEMENT_H6,
+    KEYS_HEADING,
 } from '@udecode/plate-heading';
 import { createImagePlugin, ELEMENT_IMAGE } from '@udecode/plate-media';
 import {
@@ -38,15 +39,14 @@ import { TableRowElement } from '@/components/plate-ui/table-row-element';
 import { TableCellElement, TableCellHeaderElement } from '@/components/plate-ui/table-cell-element';
 import { withPlaceholders } from '@/components/plate-ui/placeholder';
 import { ListElement } from '@/components/plate-ui/list-element';
+import { createTrailingBlockPlugin, withTrailingBlock } from '@udecode/plate-trailing-block';
+import { createComboboxPlugin } from '@udecode/plate-combobox';
+import { createExitBreakPlugin } from '@udecode/plate-break';
 
 export const plugins = createPlugins(
     [
         createParagraphPlugin(),
-        createHeadingPlugin({
-            handlers: {
-                
-            }
-        }),
+        createHeadingPlugin(),
         createImagePlugin(),
         createTablePlugin(),
         createBoldPlugin(),
@@ -64,6 +64,29 @@ export const plugins = createPlugins(
             },
         }),
         createDeserializeDocxPlugin(),
+        createExitBreakPlugin({
+            options: {
+                rules: [
+                    {
+                        hotkey: 'mod+enter',
+                    },
+                    {
+                        hotkey: 'mod+shift+enter',
+                        before: true,
+                    },
+                    {
+                        hotkey: 'enter',
+                        query: {
+                            start: true,
+                            end: true,
+                            allow: KEYS_HEADING,
+                        },
+                        relative: true,
+                        level: 1,
+                    },
+                ],
+            },
+        }),
     ],
     {
         components: withPlaceholders({

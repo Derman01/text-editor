@@ -14,9 +14,15 @@ interface IProps {
 export const PopupSettings = function (props: IProps): JSX.Element {
     const [value, setValue] = useState(props.value);
 
-    const onChange = useCallback((newValue: object) => {
-        setValue(newValue);
-    }, []);
+    const onChange = useCallback(
+        (newValue: object) => {
+            setValue(newValue);
+            props.onChange({
+                [props.meta.getId()]: newValue,
+            });
+        },
+        [props.onChange]
+    );
 
     if (!props.open) {
         return null;

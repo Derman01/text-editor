@@ -37,7 +37,7 @@ const TemplateProvider = function ({
             template: state,
             update,
         }),
-        []
+        [state, update]
     );
 
     return <TemplateContext.Provider value={value} children={children} />;

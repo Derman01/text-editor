@@ -2,37 +2,43 @@ import Header from './Header';
 import { TabProvider } from '../model/context/Tab';
 import classes from './styles/Page.module.scss';
 import Content from './Content';
-import { withAuth } from 'shared/providers/auth';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { api } from 'shared/api';
 import { IDocumentData } from 'shared/types/document';
 import { TemplateProvider } from 'widgets/StyleSettings';
+import { Box } from '@mui/material';
+import { withAuth } from 'shared/providers/auth';
 
 const Page = function () {
     const { id } = useParams();
-    // const [documentInfo, setDocumentInfo] = useState<IDocumentData>(null);
+    const [documentInfo, setDocumentInfo] = useState<IDocumentData>(null);
 
-    // useEffect(() => {
-    //     api.documents.get<IDocumentData>(id).then((document) => {
-    //         setDocumentInfo(document);
-    //     });
-    // }, [id]);
+    useEffect(() => {
+        api.documents.get<IDocumentData>(id).then((document) => {
+            setDocumentInfo(document);
+        });
+    }, [id]);
 
-    // if (!documentInfo) {
-    //     return <span>Загрузка...</span>;
-    // }
+    if (!documentInfo) {
+        return <span>Загрузка...</span>;
+    }
 
     return (
-        // <TemplateProvider template={documentInfo.template}>
+        <TemplateProvider template={documentInfo.template}>
             <TabProvider>
-                <div className={classes.page}>
+                <Box
+                    height={'100%'}
+                    position={'relative'}
+                    overflow={'hidden'}
+                    className={classes.page}
+                >
                     <Header />
                     <Content />
-                </div>
+                </Box>
             </TabProvider>
-        // </TemplateProvider>
+        </TemplateProvider>
     );
 };
 
-export default Page;
+export default withAuth(Page);

@@ -1,12 +1,12 @@
 import { TabContext, TabList } from '@mui/lab';
-import { Tab } from '@mui/material';
+import { Box, Tab } from '@mui/material';
 import { useTabContext } from '../model/context/Tab';
 import classes from './styles/Header.module.scss';
 
 const Header = function (): JSX.Element {
     const { config, selectedTabId, changeSelectedTabId } = useTabContext();
     return (
-        <div className={classes.header}>
+        <Box className={classes.header} position={'sticky'}>
             <TabContext value={selectedTabId}>
                 <TabList className={classes.switcher} onChange={changeSelectedTabId}>
                     {config.map((config) => {
@@ -14,7 +14,7 @@ const Header = function (): JSX.Element {
                     })}
                 </TabList>
             </TabContext>
-        </div>
+        </Box>
     );
 };
 

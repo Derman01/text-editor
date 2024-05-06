@@ -1,6 +1,7 @@
 import { TabContext, TabPanel } from '@mui/lab';
 import { useTabContext } from '../model/context/Tab';
 import classes from './styles/Content.module.scss';
+import { Box } from '@mui/material';
 
 const Content = function (): JSX.Element {
     const { config, selectedTabId } = useTabContext();
@@ -9,7 +10,9 @@ const Content = function (): JSX.Element {
             {config.map(({ Control, key }) => {
                 return (
                     <TabPanel className={classes.content} key={key} value={key}>
-                        {<Control />}
+                        <Box overflow={'scroll'} height={'100%'}>
+                            {<Control />}
+                        </Box>
                     </TabPanel>
                 );
             })}

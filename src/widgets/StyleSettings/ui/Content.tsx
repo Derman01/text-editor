@@ -21,7 +21,13 @@ const Content = function (): JSX.Element {
         setValue(template.heading1);
     }, []);
 
-    const onChangeHandler = useCallback((newValue: object) => {}, []);
+    const onChangeHandler = useCallback(
+        (newValue: object) => {
+            update(newValue);
+            setValue(newValue);
+        },
+        [update]
+    );
 
     return (
         <div>
