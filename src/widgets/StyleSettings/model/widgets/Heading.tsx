@@ -1,10 +1,6 @@
 import { SelectorEditor } from 'entities/editor/Selector';
 import { NumberType, ObjectType, IMetaEditorProperties, StringType } from 'shared/types/meta';
 
-const StringEditor = () => {
-    return <div></div>;
-};
-
 const getItem = (value: number) => {
     return {
         id: value + '',
@@ -68,4 +64,9 @@ const HeadingMeta = ObjectType.id('heading1')
             }),
     });
 
-export { HeadingMeta };
+export const HeadingMeta1 = HeadingMeta.id('h1').title('Заголовок 1');
+export const HeadingMeta2 = HeadingMeta.id('h2').title('Заголовок 2');
+export const HeadingMeta3 = HeadingMeta.id('h3').title('Заголовок 3');
+export const HeadingMeta4 = HeadingMeta.id('h4').title('Заголовок 4');
+export const HeadingMeta5 = HeadingMeta.id('h5').title('Заголовок 5');
+export const HeadingMeta6 = HeadingMeta.id('h6').title('Заголовок 6');

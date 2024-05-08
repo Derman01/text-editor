@@ -1,0 +1,43 @@
+.widget-h1 {
+   font-size: var(--widget-h1-fontSize);
+   text-align: var(--widget-h1-alignment);
+   font-family: var(--widget-h1-fontFamily);
+   font-weight: var(--widget-h1-fontBold);
+   text-transform: var(--widget-h1-textTransform);
+}
+
+.widget-h2 {
+   font-size: var(--widget-h2-fontSize);
+   text-align: var(--widget-h2-alignment);
+   font-family: var(--widget-h2-fontFamily);
+   font-weight: var(--widget-h2-fontBold);
+   text-transform: var(--widget-h2-textTransform);
+}
+.widget-h3 {
+   font-size: var(--widget-h3-fontSize);
+   text-align: var(--widget-h3-alignment);
+   font-family: var(--widget-h3-fontFamily);
+   font-weight: var(--widget-h3-fontBold);
+   text-transform: var(--widget-h3-textTransform);
+}
+.widget-h4 {
+   font-size: var(--widget-h4-fontSize);
+   text-align: var(--widget-h4-alignment);
+   font-family: var(--widget-h4-fontFamily);
+   font-weight: var(--widget-h4-fontBold);
+   text-transform: var(--widget-h4-textTransform);
+}
+.widget-h5 {
+   font-size: var(--widget-h5-fontSize);
+   text-align: var(--widget-h5-alignment);
+   font-family: var(--widget-h5-fontFamily);
+   font-weight: var(--widget-h5-fontBold);
+   text-transform: var(--widget-h5-textTransform);
+}
+.widget-h6 {
+   font-size: var(--widget-h5-fontSize);
+   text-align: var(--widget-h5-alignment);
+   font-family: var(--widget-h5-fontFamily);
+   font-weight: var(--widget-h5-fontBold);
+   text-transform: var(--widget-h5-textTransform);
+}

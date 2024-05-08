@@ -672,20 +672,8 @@ body {
   top: 0px;
 }
 
-.top-\[1px\] {
-  top: 1px;
-}
-
 .top-\[0px\] {
   top: 0px;
-}
-
-.left-\[0px\] {
-  left: 0px;
-}
-
-.right-\[0px\] {
-  right: 0px;
 }
 
 .z-20 {
@@ -1304,34 +1292,14 @@ body {
   font-family: inherit;
 }
 
-.text-2xl {
-  font-size: 1.5rem;
-  line-height: 2rem;
-}
-
-.text-4xl {
-  font-size: 2.25rem;
-  line-height: 2.5rem;
-}
-
 .text-base {
   font-size: 1rem;
   line-height: 1.5rem;
 }
 
-.text-lg {
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-}
-
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
-}
-
-.text-xl {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
 }
 
 .text-xs {
@@ -1349,6 +1317,10 @@ body {
 
 .font-semibold {
   font-weight: 600;
+}
+
+.uppercase {
+  text-transform: uppercase;
 }
 
 .italic {

@@ -60,7 +60,7 @@ export class ObjectMeta<
 
     attributes<NewRuntimeInterface extends object>(
         attributes?: IObjectMeta<NewRuntimeInterface>['attributes']
-    ): ObjectMeta<NewRuntimeInterface> | ObjectMetaAttributes<RuntimeInterface> {
+    ): ObjectMeta<NewRuntimeInterface> {
         return this.clone({ attributes });
     }
 

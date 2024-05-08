@@ -3,6 +3,7 @@ import { withRef, withVariants } from '@udecode/cn';
 import { PlateElement } from '@udecode/plate-common';
 import { cva } from 'class-variance-authority';
 import { useTemplateContext } from 'widgets/StyleSettings';
+import { ITemplateData } from 'shared/types/template';
 
 const headingVariants = cva('', {
     variants: {
@@ -28,7 +29,6 @@ const HeadingElementVariants = withVariants(PlateElement, headingVariants, [
 
 export const HeadingElement = withRef<typeof HeadingElementVariants>(
     ({ variant = 'h1', isFirstBlock, children, ...props }, ref) => {
-        const { template } = useTemplateContext();
         const { element, editor } = props;
 
         const Element = variant!;
@@ -41,15 +41,7 @@ export const HeadingElement = withRef<typeof HeadingElementVariants>(
                 isFirstBlock={element === editor.children[0]}
                 {...props}
             >
-                <Element
-                    style={{
-                        textAlign: `${template.heading1.alignment}`,
-                        fontSize: `${template.heading1.size}pt`,
-                        fontFamily: `${template.heading1.font}`,
-                    }}
-                >
-                    {children}
-                </Element>
+                <Element className={'widget-' + variant}>{children}</Element>
             </HeadingElementVariants>
         );
     }

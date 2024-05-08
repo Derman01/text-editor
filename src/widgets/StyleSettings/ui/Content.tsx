@@ -3,28 +3,47 @@ import { BoxShadow } from 'entities/box';
 import { useTemplateContext } from '../model/context/Template';
 import { useCallback, useState } from 'react';
 import { PopupSettings } from './PopupSettings';
-import { HeadingMeta } from '../model/widgets';
+import * as metaWidgets from '../model/widgets';
 import { ObjectMeta } from 'shared/types/meta';
+
+type IConfigState =
+    | {
+          isOpen: true;
+          meta: ObjectMeta;
+          value: any;
+          title: string;
+      }
+    | {
+          isOpen: false;
+      };
+
+const HeadingWidgets = [
+    metaWidgets.HeadingMeta1,
+    metaWidgets.HeadingMeta2,
+    metaWidgets.HeadingMeta3,
+    metaWidgets.HeadingMeta4,
+    metaWidgets.HeadingMeta5,
+    metaWidgets.HeadingMeta6,
+];
 
 const Content = function (): JSX.Element {
     const { template, update } = useTemplateContext();
-    const [isOpen, setIsOpen] = useState(false);
-    const [selectedWidget, setSelectedWidget] = useState('null');
-    const [meta, setMeta] = useState<ObjectMeta>();
-    const [value, setValue] = useState();
-    const [title, setTitle] = useState('');
+    const [config, setConfig] = useState<IConfigState>({
+        isOpen: false,
+    });
 
-    const openHeadingSettings = useCallback(() => {
-        setIsOpen(true);
-        setSelectedWidget('heading1');
-        setMeta(HeadingMeta);
-        setValue(template.heading1);
-    }, []);
+    const openHeadingSettings = (newSelectedMeta: ObjectMeta) => {
+        setConfig({
+            isOpen: true,
+            meta: newSelectedMeta,
+            title: newSelectedMeta.getTitle(),
+            value: template[newSelectedMeta.getId()],
+        });
+    };
 
     const onChangeHandler = useCallback(
         (newValue: object) => {
             update(newValue);
-            setValue(newValue);
         },
         [update]
     );
@@ -55,31 +74,32 @@ const Content = function (): JSX.Element {
                         <Typography>Таблица</Typography>
                     </Button>
                     <Box display={'flex'}>
-                        <Button onClick={openHeadingSettings}>
-                            <Typography>Заголовок 1</Typography>
-                        </Button>
-                        <Button>
-                            <Typography>Заголовок 2</Typography>
-                        </Button>
-                        <Button>
-                            <Typography>Заголовок 3</Typography>
-                        </Button>
-                        <Button>
-                            <Typography>Заголовок 4</Typography>
-                        </Button>
-                        <Button>
-                            <Typography>Заголовок 5</Typography>
-                        </Button>
+                        {HeadingWidgets.map((widget) => {
+                            return (
+                                <Button
+                                    key={widget.getId()}
+                                    onClick={() => openHeadingSettings(widget)}
+                                >
+                                    <Typography>{widget.getTitle()}</Typography>
+                                </Button>
+                            );
+                        })}
                     </Box>
                 </Box>
-                <PopupSettings
-                    handleClose={() => setIsOpen(false)}
-                    key={selectedWidget}
-                    meta={meta}
-                    open={isOpen}
-                    value={value}
-                    onChange={onChangeHandler}
-                />
+                {config.isOpen && (
+                    <PopupSettings
+                        handleClose={() =>
+                            setConfig({
+                                isOpen: false,
+                            })
+                        }
+                        key={config.meta.getId()}
+                        meta={config.meta}
+                        open={true}
+                        value={template[config.meta.getId()]}
+                        onChange={onChangeHandler}
+                    />
+                )}
             </BoxShadow>
         </div>
     );
