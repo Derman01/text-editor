@@ -1,18 +1,15 @@
 import { CSSProperties, createContext, useCallback, useContext, useMemo, useState } from 'react';
-import { ITemplateData } from 'shared/types/template';
+import { ITemplateData, ITitleData } from 'shared/types/template';
 import './style.css';
 import { api } from 'shared/api';
 
-type TypeHeading = ITemplateData['titles'][0]['textStyle']['rules'] &
-    ITemplateData['titles'][0]['rules'];
-
 interface ITemplateFormat {
-    h1: TypeHeading;
-    h2: TypeHeading;
-    h3: TypeHeading;
-    h4: TypeHeading;
-    h5: TypeHeading;
-    h6: TypeHeading;
+    h1: ITitleData;
+    h2: ITitleData;
+    h3: ITitleData;
+    h4: ITitleData;
+    h5: ITitleData;
+    h6: ITitleData;
 }
 
 export interface ITemplateContext {
@@ -43,14 +40,14 @@ const TemplateProvider = function ({
     );
 
     const save = () => {
-        api
+        api;
     };
 
     const value: ITemplateContext = useMemo(
         () => ({
             template: state,
             update,
-            save
+            save,
         }),
         [state, update]
     );
@@ -87,23 +84,43 @@ export { TemplateProvider, useTemplateContext };
 
 const getValueMeta = (data: ITemplateData): ITemplateFormat => {
     const titles = data.titles;
-    const heading = titles.reduce(
+
+    const h6: ITemplateFormat['h6'] = {
+        depth: 5,
+        name: 'Заголовок 6',
+        rules: {
+            capitalisation: true,
+            endLineDot: true,
+            newPageWrap: true,
+        },
+        id: '',
+        textStyle: {
+            id: '',
+            name: '',
+            rules: {
+                alignment: 'center',
+                bold: true,
+                color: '#000000',
+                font: 'Times New Roman',
+                indent: 0,
+                italic: false,
+                keepLines: true,
+                lineSpacing: 1.15,
+                size: 14,
+                underline: false,
+                wordWrap: true,
+            },
+        },
+    };
+    const heading: ITemplateFormat = titles.reduce(
         (old, current) => {
             return {
                 ...old,
-                [`h${current.depth + 1}`]: {
-                    ...current.rules,
-                    ...current.textStyle.rules,
-                },
+                [`h${current.depth + 1}`]: current as ITitleData,
             };
         },
-        {
-            h6: {
-                ...titles[0].rules,
-                ...titles[0].textStyle.rules,
-            },
-        }
-    ) as unknown as ITemplateFormat;
+        { h6 }
+    ) as ITemplateFormat;
 
     return {
         ...heading,
