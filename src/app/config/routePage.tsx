@@ -1,6 +1,7 @@
 import { Folder, Settings } from '@mui/icons-material';
 import { AuthPage } from 'pages/auth';
 import { PageConstructor } from 'pages/constructor';
+import { ConstructorTemplatePage } from 'pages/costructorTemplate';
 import { DocumentPage } from 'pages/documents';
 import { TemplatePage } from 'pages/templates';
 import { Navigate } from 'react-router-dom';
@@ -21,7 +22,7 @@ export const PAGE_CONFIGS: PageConfigs = {
         path: PAGE_PATHS.documents,
         title: 'Документы',
         element: <DocumentPage />,
-        Icon: Folder
+        Icon: Folder,
     },
     [PAGES.Constructor]: {
         path: PAGE_PATHS.constructor,
@@ -32,7 +33,12 @@ export const PAGE_CONFIGS: PageConfigs = {
         path: PAGE_PATHS.templates,
         title: 'Шаблоны',
         element: <TemplatePage />,
-        Icon: Settings
+        Icon: Settings,
+    },
+    [PAGES.ConstructorTemplate]: {
+        path: PAGE_PATHS.constructorTemplate,
+        title: 'Конструктор шаблонов',
+        element: <ConstructorTemplatePage />,
     },
     [PAGES.NotFound]: {
         path: PAGE_PATHS.notFound,

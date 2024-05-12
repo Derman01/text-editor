@@ -6,12 +6,14 @@ type TWritable<T> = {
 
 export class Meta<RuntimeInterface = unknown> {
     protected _id: string;
+    protected _type?: string;
     protected _editor: IMetaEditor<RuntimeInterface>;
     protected _defaultValue?: RuntimeInterface;
     protected _info: TWritable<IMetaInfo> = {};
 
     constructor(descriptor: IMeta<RuntimeInterface>) {
         this._id = descriptor.id ?? this._id ?? '';
+        this._type = descriptor.type;
         this._defaultValue = descriptor.defaultValue;
         this._editor = descriptor.editor;
         this._info = createMetaInfo(descriptor.info);
@@ -22,7 +24,8 @@ export class Meta<RuntimeInterface = unknown> {
     ): TNewMeta {
         const Constructor = this.constructor as any;
         let id = update.id ?? this._id;
-        return new Constructor({ ...this.toDescriptor(), ...update, id });
+        let type = update.type ?? this._type;
+        return new Constructor({ ...this.toDescriptor(), ...update, id, type });
     }
 
     id(id: string | undefined): this {
@@ -98,6 +101,10 @@ export class Meta<RuntimeInterface = unknown> {
             defaultValue: this._defaultValue,
             editor: this._editor,
         };
+    }
+
+    getType(): string {
+        return this._type;
     }
 
     static id<RuntimeInterface>(id: string): Meta<RuntimeInterface> {

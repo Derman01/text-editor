@@ -7,6 +7,7 @@ export enum PAGES {
     Constructor = 'constructor',
     Auth = 'auth',
     Templates = 'templates',
+    ConstructorTemplate = 'constructorTemplate',
     NotFound = 'notFound',
 }
 
@@ -16,6 +17,7 @@ export const PAGE_PATHS: Record<PAGES, string> = {
     [PAGES.Constructor]: '/constructor/:id',
     [PAGES.Auth]: '/auth',
     [PAGES.Templates]: '/templates',
+    [PAGES.ConstructorTemplate]: '/template/:id',
     [PAGES.NotFound]: '*',
 };
 

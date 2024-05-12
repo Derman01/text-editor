@@ -49,7 +49,7 @@ const Content = function (): JSX.Element {
     );
 
     return (
-        <div>
+        <Box padding={1}>
             <BoxShadow padding={1}>
                 <Button>
                     <Typography>Настройки страниц</Typography>
@@ -58,8 +58,8 @@ const Content = function (): JSX.Element {
             <BoxShadow padding={2} mt={2}>
                 <Typography variant="h6">Настройки текстовых элементов ввода</Typography>
                 <Box display={'flex'} flexDirection={'column'} alignItems={'flex-start'}>
-                    <Button>
-                        <Typography>Параграф</Typography>
+                    <Button onClick={() => openHeadingSettings(metaWidgets.ParagraphMeta)}>
+                        <Typography>{metaWidgets.ParagraphMeta.getTitle()}</Typography>
                     </Button>
                     <Button>
                         <Typography>Список</Typography>
@@ -101,7 +101,7 @@ const Content = function (): JSX.Element {
                     />
                 )}
             </BoxShadow>
-        </div>
+        </Box>
     );
 };
 

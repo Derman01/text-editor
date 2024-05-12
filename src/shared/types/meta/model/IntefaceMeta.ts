@@ -12,6 +12,7 @@ export type IMetaInfo = {
 export type IMeta<RuntimeInterface> = {
     readonly id?: string;
     readonly info?: IMetaInfo;
+    readonly type?: string;
     readonly editor?: IMetaEditor<RuntimeInterface>;
     readonly defaultValue?: RuntimeInterface;
 };

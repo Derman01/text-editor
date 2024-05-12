@@ -24,17 +24,28 @@ const DocumentList = function (): JSX.Element {
     }, []);
 
     const onAddClickHandler = useCallback(() => {
-        api.templates.create().then((item: TypeItem) => {
-            console.log(item)
-            // setItems((items) => [
-            //     {
-            //         id: item.id,
-            //         name: item.name,
-            //         path: item.path,
-            //     },
-            //     ...items,
-            // ]);
+        api.templates.create().then(({ template }: { template: TypeItem }) => {
+            setItems((items) => [
+                {
+                    id: template.id,
+                    name: template.name,
+                },
+                ...items,
+            ]);
         });
+    }, []);
+
+    const actionHandler = useCallback((item: TypeItem, action: MoreProps['items'][0]) => {
+        if (action.key === 'open') {
+            window.open(`/template/${item.id}`);
+        }
+        if (action.key === 'delete') {
+            api.templates.remove(item.id).then(() => {
+                setItems((oldItems) => {
+                    return oldItems.filter((itterItem) => itterItem.id !== item.id);
+                });
+            });
+        }
     }, []);
 
     return (
@@ -60,7 +71,7 @@ const DocumentList = function (): JSX.Element {
             <ScrollContainer>
                 <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
                     {items.map((item) => (
-                        <Item key={item.id} item={item} />
+                        <Item actionHandler={actionHandler} key={item.id} item={item} />
                     ))}
                 </List>
             </ScrollContainer>
@@ -68,17 +79,21 @@ const DocumentList = function (): JSX.Element {
     );
 };
 
-const Item = function ({ item }: { item: TypeItem }): JSX.Element {
-    const actionHandler: MoreProps['actionHandler'] = useCallback((action) => {
-        if (action.key === 'open') {
-            window.open(`/constructor/${item.id}`);
-        }
-    }, []);
+const Item = function ({
+    item,
+    actionHandler,
+}: {
+    item: TypeItem;
+    actionHandler: (item: TypeItem, action: MoreProps['items'][0]) => void;
+}): JSX.Element {
+    const handler = (action) => {
+        return actionHandler(item, action);
+    };
 
     return (
         <ListItemButton key={item.id} alignItems="flex-start">
             <ListItemText primary={item.name} secondary={'01.04.2024'} />
-            <More actionHandler={actionHandler} items={moreMenuItems} />
+            <More actionHandler={handler} items={moreMenuItems} />
         </ListItemButton>
     );
 };

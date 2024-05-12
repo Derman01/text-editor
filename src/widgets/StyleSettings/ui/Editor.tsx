@@ -36,6 +36,25 @@ const Editor = function (props: IProps): JSX.Element {
     return (
         <Box display={'grid'} gridTemplateColumns={'1fr 1fr'}>
             {attrsArray.map((attr) => {
+                if (attr.meta.getType() === 'object') {
+                    return (
+                        <Box key={attr.key} width={'100%'} gridColumn={'span 2'}>
+                            {attr.meta.getTitle() && (
+                                <Typography fontWeight={'bold'}>{attr.meta.getTitle()}</Typography>
+                            )}
+                            <Editor
+                                meta={attr.meta}
+                                value={props.value[attr.key]}
+                                onChange={(newValue) => {
+                                    onChangeHandler(attr.key, {
+                                        ...props.value[attr.key],
+                                        ...newValue,
+                                    });
+                                }}
+                            />
+                        </Box>
+                    );
+                }
                 return (
                     <EditorAttr
                         meta={attr.meta}
@@ -74,6 +93,7 @@ const EditorAttr = function ({
 
     const EditorComponent = editor.component;
     const editorProps = editor.properties;
+
     return (
         <>
             <Typography>{meta.getTitle()}</Typography>
