@@ -1,6 +1,6 @@
-import { IPageDataInterface } from './model/Page';
-import { IParagraphInterface } from './model/Paragraph';
-import { ITitleDataInterface } from './model/Titles';
+import { IPageDataInterface, IPageData } from './model/Page';
+import { IParagraphInterface, IParagraphData } from './model/Paragraph';
+import { ITitleDataInterface, ITitleData } from './model/Titles';
 import { IBaseData } from './model/base';
 
 interface ITemplateData
@@ -9,4 +9,13 @@ interface ITemplateData
         IParagraphInterface,
         ITitleDataInterface {}
 
-export type { ITemplateData, IParagraphInterface, ITitleDataInterface, IPageDataInterface };
+export type {
+    ITemplateData,
+    IParagraphInterface,
+    ITitleDataInterface,
+    IPageDataInterface,
+    IPageData,
+    IParagraphData,
+    ITitleData,
+};
+export type { ITextStyleInterface } from './model/TextStyle';

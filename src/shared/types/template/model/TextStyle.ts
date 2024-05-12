@@ -20,8 +20,8 @@ interface ITextStyleRules {
     italic: false;
     // TODO что такое
     keepLines: true;
-    lineSpacing: 1.15;
-    size: 13;
+    lineSpacing: 1.15 | number;
+    size: number;
     underline: false;
     wordWrap: true;
 }

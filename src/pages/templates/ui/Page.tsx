@@ -1,10 +1,9 @@
 import { Box } from '@mui/material';
 import { BoxShadow } from 'entities/box';
 import { withNavigate } from 'entities/page';
-import { withAuth } from 'shared/providers/auth';
-import { DocumentsFolder, DocumentsList } from 'widgets/Documents';
+import { TemplateList } from 'widgets/Templates';
 
-const Main = function (): JSX.Element {
+const TemplatePage = function (): JSX.Element {
     return (
         <Box
             height={'100%'}
@@ -13,14 +12,11 @@ const Main = function (): JSX.Element {
             padding={'24px'}
             bgcolor={'#F4F6F8'}
         >
-            <BoxShadow width={'250px'} bgcolor={'#fff'}>
-                <DocumentsFolder />
-            </BoxShadow>
             <BoxShadow width={'100%'} bgcolor={'#fff'}>
-                <DocumentsList />
+                <TemplateList />
             </BoxShadow>
         </Box>
     );
 };
 
-export default withNavigate(withAuth(Main));
+export default withNavigate(TemplatePage);

@@ -1,1 +1,2 @@
-export { default as Routes } from './ui/Routes';
+export { default as Page } from './ui/Page';
+export { withNavigate } from './ui/withNavigate';

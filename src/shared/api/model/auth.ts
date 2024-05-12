@@ -41,16 +41,17 @@ const registration = ({ email, name, password }: RegistrationParams) => {
         });
 };
 
-const getTemplates = () => {
-    return $api.get('/templates').then((data) => {
-        return data;
+const logout = () => {
+    return $api.get('/auth/logout').then(() => {
+        localStorage.clear();
+        return Promise.resolve();
     });
 };
 
 const authApi = {
     login,
     registration,
-    getTemplates,
+    logout,
 };
 
 export { authApi };

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'http://server.evgfilim1.me:8090/api/';
+const baseURL = 'https://konako.ru/api/';
 
 const $api = axios.create({
     baseURL,
