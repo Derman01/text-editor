@@ -1,5 +1,6 @@
 import { Box } from '@mui/material';
 import { BoxShadow } from 'entities/box';
+import { withNavigate } from 'entities/page';
 import { withAuth } from 'shared/providers/auth';
 import { DocumentsFolder, DocumentsList } from 'widgets/Documents';
 
@@ -22,4 +23,4 @@ const Main = function (): JSX.Element {
     );
 };
 
-export default withAuth(Main);
+export default withNavigate(withAuth(Main));
