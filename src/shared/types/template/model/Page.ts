@@ -1,12 +1,22 @@
+import { INumberingStyleInterface } from './NumberingStyle';
 import { IBaseData } from './base';
 
-interface IPageData extends IBaseData {
-    fields: IFields;
-    rules: IPageRules;
-    // TODO
-    // numberingStyle: INumberingStyle
+interface IPageData
+    extends IBaseData,
+        IFieldInterface,
+        IPageRulesInterface,
+        INumberingStyleInterface {}
+
+interface IFields {
+    up: number;
+    down: number;
+    left: number;
+    right: number;
 }
 
+interface IFieldInterface {
+    fields: IFields;
+}
 interface IPageRules {
     format: 'A4';
     /**
@@ -19,11 +29,8 @@ interface IPageRules {
     orientationVertical: boolean;
 }
 
-interface IFields {
-    up: number;
-    down: number;
-    left: number;
-    right: number;
+interface IPageRulesInterface {
+    rules: IPageRules;
 }
 
 interface IPageDataInterface {

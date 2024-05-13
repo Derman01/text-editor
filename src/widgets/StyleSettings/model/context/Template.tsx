@@ -1,9 +1,10 @@
 import { CSSProperties, createContext, useCallback, useContext, useMemo, useState } from 'react';
-import { ITemplateData } from 'shared/types/template';
+import { IParagraphData, ITemplateData } from 'shared/types/template';
 import './style.css';
 import { api } from 'shared/api';
 import { IBaseData } from 'shared/types/template/model/base';
-import { DEFAULT_SETTINGS, ISettings } from './const';
+import { DEFAULT_SETTINGS, ISettings, convertFormatRequest } from './const';
+import { convertCamelCaseToPep } from 'shared/lib/converter';
 
 export interface ITemplateContext {
     info: IBaseData;
@@ -47,9 +48,9 @@ const TemplateProvider = function ({
 
     const save = () => {
         api.templates.update(info.id, {
-            ...template,
+            ...convertCamelCaseToPep(template),
             ...info,
-            ...getRequestFormat(state),
+            ...convertFormatRequest(state),
         });
     };
 
@@ -65,7 +66,7 @@ const TemplateProvider = function ({
     );
 
     const styles: CSSProperties = useMemo(() => {
-        const getStyleWidget = (key: keyof ISettings) => {
+        const getStyleWidget = (key: keyof IParagraphData) => {
             return {
                 [`--widget-${key}-fontSize`]: `${state[key].textStyle.rules.size}pt`,
                 [`--widget-${key}-alignment`]: `${state[key].textStyle.rules.alignment}`,
@@ -75,10 +76,13 @@ const TemplateProvider = function ({
             };
         };
 
-        return Object.keys(state).reduce((old, key) => {
+        const { h1, h2, h3, h4, h5, h6, p } = state;
+        const widgets = { h1, h2, h3, h4, h5, h6, p };
+
+        return Object.keys(widgets).reduce((old, key) => {
             return {
                 ...old,
-                ...getStyleWidget(key as keyof ISettings),
+                ...getStyleWidget(key as keyof IParagraphData),
             };
         }, {}) as CSSProperties;
     }, [state]);
@@ -98,6 +102,7 @@ const getValueMeta = (data: ITemplateData): ISettings => {
     const { titles, paragraph } = data;
     const settingsTitles = titles.reduce((old, current) => {
         return {
+            ...old,
             ['h' + current.depth]: current,
         };
     }, {}) as Partial<ISettings>;
@@ -109,12 +114,4 @@ const getValueMeta = (data: ITemplateData): ISettings => {
     };
 
     return settings;
-};
-
-const getRequestFormat = (data: ISettings): Partial<ITemplateData> => {
-    const titles = [data.h1, data.h2, data.h3, data.h4, data.h5, data.h6];
-    return {
-        titles,
-        paragraph: data.p,
-    };
 };

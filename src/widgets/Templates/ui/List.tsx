@@ -8,14 +8,16 @@ import {
     Typography,
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { useState, useLayoutEffect, useCallback } from 'react';
+import { useState, useLayoutEffect, useCallback, createRef } from 'react';
 import { api } from 'shared/api';
 import { TypeItem } from '../model/types';
 import { ScrollContainer } from 'entities/scroll';
 import { More, MoreProps } from 'entities/menu';
+import CreatingForm from './CreatingForm';
 
-const DocumentList = function (): JSX.Element {
+const TemplateList = function (): JSX.Element {
     const [items, setItems] = useState<TypeItem[]>([]);
+    const popupRef = createRef();
 
     useLayoutEffect(() => {
         api.templates.getUsers<TypeItem[]>().then((items) => {
@@ -23,17 +25,7 @@ const DocumentList = function (): JSX.Element {
         });
     }, []);
 
-    const onAddClickHandler = useCallback(() => {
-        api.templates.create().then(({ template }: { template: TypeItem }) => {
-            setItems((items) => [
-                {
-                    id: template.id,
-                    name: template.name,
-                },
-                ...items,
-            ]);
-        });
-    }, []);
+    const onAddClickHandler = () => popupRef.current.open();
 
     const actionHandler = useCallback((item: TypeItem, action: MoreProps['items'][0]) => {
         if (action.key === 'open') {
@@ -75,6 +67,18 @@ const DocumentList = function (): JSX.Element {
                     ))}
                 </List>
             </ScrollContainer>
+            <CreatingForm
+                ref={popupRef}
+                creatingHandler={(template) => {
+                    setItems((items) => [
+                        {
+                            id: template.id,
+                            name: template.name,
+                        },
+                        ...items,
+                    ]);
+                }}
+            />
         </Box>
     );
 };
@@ -92,13 +96,13 @@ const Item = function ({
 
     return (
         <ListItemButton key={item.id} alignItems="flex-start">
-            <ListItemText primary={item.name} secondary={'01.04.2024'} />
+            <ListItemText primary={item.name} />
             <More actionHandler={handler} items={moreMenuItems} />
         </ListItemButton>
     );
 };
 
-export default DocumentList;
+export default TemplateList;
 
 const moreMenuItems: MoreProps['items'] = [
     {

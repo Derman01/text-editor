@@ -1,5 +1,5 @@
 interface IBaseData {
-    id: string;
+    id?: string;
     name: string;
 }
 

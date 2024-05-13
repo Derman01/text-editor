@@ -1,4 +1,5 @@
-import { IParagraphData, ITitleData } from 'shared/types/template';
+import { convertCamelCaseToPep } from 'shared/lib/converter';
+import { IPageData, IParagraphData, ITemplateData, ITitleData } from 'shared/types/template';
 
 export interface ISettings {
     h1: ITitleData;
@@ -8,6 +9,11 @@ export interface ISettings {
     h5: ITitleData;
     h6: ITitleData;
     p: IParagraphData;
+    page: IPageData;
+    illustration: object;
+    formula: object;
+    listing: object;
+    table: object;
 }
 
 const h1: ISettings['h1'] = {
@@ -16,12 +22,12 @@ const h1: ISettings['h1'] = {
     name: 'Заголовок первого уровня',
     rules: {
         capitalisation: true,
-
-        
+        endLineDot: true,
+        newPageWrap: true,
     },
     textStyle: {
         id: undefined,
-        name: undefined,
+        name: 'Стиль заголовка 1',
         rules: {
             alignment: 'center',
             bold: true,
@@ -36,6 +42,17 @@ const h1: ISettings['h1'] = {
             wordWrap: true,
         },
     },
+    numberingStyle: {
+        id: undefined,
+        name: 'Стиль нумерации',
+        rules: {
+            arabicNumbers: false,
+            bracketsNeeded: false,
+            crossCutting: false,
+            endLineDot: false,
+            multiLevel: false,
+        },
+    },
 };
 
 const h2: ISettings['h2'] = {
@@ -44,12 +61,12 @@ const h2: ISettings['h2'] = {
     name: 'Заголовок второго уровня',
     rules: {
         capitalisation: true,
-
-        
+        endLineDot: true,
+        newPageWrap: true,
     },
     textStyle: {
         id: undefined,
-        name: undefined,
+        name: 'Стиль заголовка 2',
         rules: {
             alignment: 'center',
             bold: true,
@@ -64,6 +81,17 @@ const h2: ISettings['h2'] = {
             wordWrap: true,
         },
     },
+    numberingStyle: {
+        id: undefined,
+        name: 'Стиль нумерации',
+        rules: {
+            arabicNumbers: false,
+            bracketsNeeded: false,
+            crossCutting: false,
+            endLineDot: false,
+            multiLevel: false,
+        },
+    },
 };
 const h3: ISettings['h3'] = {
     id: undefined,
@@ -71,12 +99,12 @@ const h3: ISettings['h3'] = {
     name: 'Заголовок 3 уровня',
     rules: {
         capitalisation: true,
-
-        
+        endLineDot: true,
+        newPageWrap: true,
     },
     textStyle: {
         id: undefined,
-        name: undefined,
+        name: 'Стиль заголовка 3',
         rules: {
             alignment: 'center',
             bold: true,
@@ -91,6 +119,17 @@ const h3: ISettings['h3'] = {
             wordWrap: true,
         },
     },
+    numberingStyle: {
+        id: undefined,
+        name: 'Стиль нумерации',
+        rules: {
+            arabicNumbers: false,
+            bracketsNeeded: false,
+            crossCutting: false,
+            endLineDot: false,
+            multiLevel: false,
+        },
+    },
 };
 const h4: ISettings['h4'] = {
     id: undefined,
@@ -98,12 +137,12 @@ const h4: ISettings['h4'] = {
     name: 'Заголовок 4 уровня',
     rules: {
         capitalisation: true,
-
-        
+        endLineDot: true,
+        newPageWrap: true,
     },
     textStyle: {
         id: undefined,
-        name: undefined,
+        name: 'Стиль заголовка 4',
         rules: {
             alignment: 'center',
             bold: true,
@@ -118,6 +157,17 @@ const h4: ISettings['h4'] = {
             wordWrap: true,
         },
     },
+    numberingStyle: {
+        id: undefined,
+        name: 'Стиль нумерации',
+        rules: {
+            arabicNumbers: false,
+            bracketsNeeded: false,
+            crossCutting: false,
+            endLineDot: false,
+            multiLevel: false,
+        },
+    },
 };
 const h5: ISettings['h5'] = {
     id: undefined,
@@ -125,12 +175,12 @@ const h5: ISettings['h5'] = {
     name: 'Заголовок 5 уровня',
     rules: {
         capitalisation: true,
-
-        
+        endLineDot: true,
+        newPageWrap: true,
     },
     textStyle: {
         id: undefined,
-        name: undefined,
+        name: 'Стиль заголовка 5',
         rules: {
             alignment: 'center',
             bold: true,
@@ -145,6 +195,17 @@ const h5: ISettings['h5'] = {
             wordWrap: true,
         },
     },
+    numberingStyle: {
+        id: undefined,
+        name: 'Стиль нумерации',
+        rules: {
+            arabicNumbers: false,
+            bracketsNeeded: false,
+            crossCutting: false,
+            endLineDot: false,
+            multiLevel: false,
+        },
+    },
 };
 const h6: ISettings['h6'] = {
     id: undefined,
@@ -152,12 +213,12 @@ const h6: ISettings['h6'] = {
     name: 'Заголовок 6 уровня',
     rules: {
         capitalisation: true,
-
-        
+        endLineDot: true,
+        newPageWrap: true,
     },
     textStyle: {
         id: undefined,
-        name: undefined,
+        name: 'Стиль заголовка 6',
         rules: {
             alignment: 'center',
             bold: true,
@@ -172,6 +233,17 @@ const h6: ISettings['h6'] = {
             wordWrap: true,
         },
     },
+    numberingStyle: {
+        id: undefined,
+        name: 'Стиль нумерации',
+        rules: {
+            arabicNumbers: false,
+            bracketsNeeded: false,
+            crossCutting: false,
+            endLineDot: false,
+            multiLevel: false,
+        },
+    },
 };
 
 const p: ISettings['p'] = {
@@ -179,7 +251,7 @@ const p: ISettings['p'] = {
     name: 'Параграф',
     textStyle: {
         id: undefined,
-        name: undefined,
+        name: 'Стиль параграфа',
         rules: {
             alignment: 'left',
             bold: false,
@@ -196,6 +268,187 @@ const p: ISettings['p'] = {
     },
 };
 
+const page: ISettings['page'] = {
+    name: 'Обычная страница',
+    rules: {
+        format: 'A4',
+        orientationVertical: true,
+        isFirstListNumbered: false,
+    },
+    fields: {
+        left: 0.3,
+        up: 0.2,
+        right: 0.15,
+        down: 0.2,
+    },
+
+    numberingStyle: {
+        id: undefined,
+        name: 'Стиль нумеризации',
+        rules: {
+            multiLevel: false,
+            arabicNumbers: false,
+            endLineDot: false,
+            crossCutting: false,
+            bracketsNeeded: false,
+        },
+    },
+};
+
+const table = {
+    name: 'Обычная таблица',
+    rules: {
+        canMultiLine: true,
+    },
+    textStyle: {
+        name: 'Стиль текста',
+        rules: {
+            color: '#000000',
+            font: 'Times New Roman',
+            size: 14,
+            italic: false,
+            underline: false,
+            bold: false,
+            alignment: 'left',
+            keepLines: true,
+            wordWrap: true,
+            indent: 1.25,
+            lineSpacing: 1.15,
+        },
+    },
+    titleTextStyle: {
+        name: 'Стиль заголовка',
+        rules: {
+            color: '#000000',
+            font: 'Times New Roman',
+            size: 18,
+            italic: false,
+            underline: false,
+            bold: true,
+            alignment: 'center',
+            keepLines: true,
+            wordWrap: true,
+            indent: 1.25,
+            lineSpacing: 1.15,
+        },
+    },
+    numberingStyle: {
+        name: 'Стиль нумеризации',
+        rules: {
+            multiLevel: false,
+            arabicNumbers: false,
+            endLineDot: false,
+            crossCutting: false,
+            bracketsNeeded: false,
+        },
+    },
+};
+const illustration = {
+    name: 'Обычная иллюстрация',
+    textStyle: {
+        name: 'Стиль текста',
+        rules: {
+            color: '#000000',
+            font: 'Times New Roman',
+            size: 14,
+            italic: false,
+            underline: false,
+            bold: false,
+            alignment: 'center',
+            keepLines: true,
+            wordWrap: true,
+            indent: 1.25,
+            lineSpacing: 1.15,
+        },
+    },
+    numberingStyle: {
+        name: 'Стиль нумеризации',
+        rules: {
+            multiLevel: false,
+            arabicNumbers: false,
+            endLineDot: false,
+            crossCutting: false,
+            bracketsNeeded: false,
+        },
+    },
+};
+
+const formula = {
+    name: 'Обычная формула',
+    textStyle: {
+        name: 'Стиль текста',
+        rules: {
+            color: '#000000',
+            font: 'Times New Roman',
+            size: 14,
+            italic: false,
+            underline: false,
+            bold: false,
+            alignment: 'center',
+            keepLines: true,
+            wordWrap: true,
+            indent: 1.25,
+            lineSpacing: 1.15,
+        },
+    },
+    numberingStyle: {
+        name: 'Стиль нумеризации',
+        rules: {
+            multiLevel: false,
+            arabicNumbers: false,
+            endLineDot: false,
+            crossCutting: false,
+            bracketsNeeded: false,
+        },
+    },
+};
+
+const listing = {
+    name: 'Обычный листинг',
+    textStyle: {
+        name: 'Стиль текста',
+        rules: {
+            color: '#000000',
+            font: 'Times New Roman',
+            size: 12,
+            italic: true,
+            underline: false,
+            bold: false,
+            alignment: 'left',
+            keepLines: true,
+            wordWrap: true,
+            indent: 1.25,
+            lineSpacing: 1.15,
+        },
+    },
+    titleTextStyle: {
+        name: 'Стиль заголовка',
+        rules: {
+            color: '#000000',
+            font: 'Times New Roman',
+            size: 18,
+            italic: false,
+            underline: false,
+            bold: true,
+            alignment: 'center',
+            keepLines: true,
+            wordWrap: true,
+            indent: 1.25,
+            lineSpacing: 1.15,
+        },
+    },
+    numberingStyle: {
+        name: 'Стиль нумеризации',
+        rules: {
+            multiLevel: false,
+            arabicNumbers: false,
+            endLineDot: false,
+            crossCutting: false,
+            bracketsNeeded: false,
+        },
+    },
+};
+
 export const DEFAULT_SETTINGS: ISettings = {
     h1,
     h2,
@@ -204,4 +457,21 @@ export const DEFAULT_SETTINGS: ISettings = {
     h5,
     h6,
     p,
+    page,
+    illustration,
+    formula,
+    listing,
+    table,
+};
+
+export const convertFormatRequest = (data: ISettings): Partial<ITemplateData> => {
+    return convertCamelCaseToPep({
+        page,
+        illustration,
+        formula,
+        table,
+        listing,
+        titles: [data.h1, data.h2, data.h3, data.h4, data.h5, data.h6],
+        paragraph: data.p,
+    });
 };

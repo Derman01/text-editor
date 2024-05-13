@@ -1,7 +1,12 @@
-import { ITextStyleData, ITextStyleInterface } from './TextStyle';
+import { INumberingStyleInterface } from './NumberingStyle';
+import { ITextStyleInterface } from './TextStyle';
 import { IBaseData } from './base';
 
-interface ITitleData extends IBaseData, ITextStyleInterface, ITitleRulesInterface {
+interface ITitleData
+    extends IBaseData,
+        ITextStyleInterface,
+        ITitleRulesInterface,
+        INumberingStyleInterface {
     depth: 1 | 2 | 3 | 4 | 5 | 6;
 }
 
