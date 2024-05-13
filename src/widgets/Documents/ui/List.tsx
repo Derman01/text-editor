@@ -11,14 +11,16 @@ import {
     Typography,
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { useState, useLayoutEffect, useCallback, Fragment } from 'react';
+import { useState, useLayoutEffect, useCallback, Fragment, createRef } from 'react';
 import { api } from 'shared/api';
 import { TypeItem } from '../model/types';
 import { ScrollContainer } from 'entities/scroll';
 import { More, MoreProps } from 'entities/menu';
+import CreatingForm from './CreatingForm';
 
 const DocumentList = function (): JSX.Element {
     const [items, setItems] = useState<TypeItem[]>([]);
+    const popupRef = createRef();
 
     useLayoutEffect(() => {
         api.documents.getAll<TypeItem[]>().then((items) => {
@@ -26,18 +28,7 @@ const DocumentList = function (): JSX.Element {
         });
     }, []);
 
-    const onAddClickHandler = useCallback(() => {
-        api.documents.create().then((item: TypeItem) => {
-            setItems((items) => [
-                {
-                    id: item.id,
-                    name: item.name,
-                    path: item.path,
-                },
-                ...items,
-            ]);
-        });
-    }, []);
+    const onAddClickHandler = () => popupRef.current.open();
 
     return (
         <Box
@@ -66,6 +57,19 @@ const DocumentList = function (): JSX.Element {
                     ))}
                 </List>
             </ScrollContainer>
+            <CreatingForm
+                ref={popupRef}
+                creatingHandler={(item: TypeItem) => {
+                    setItems((items) => [
+                        {
+                            id: item.id,
+                            name: item.name,
+                            path: item.path,
+                        },
+                        ...items,
+                    ]);
+                }}
+            />
         </Box>
     );
 };

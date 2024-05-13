@@ -6,16 +6,10 @@ const getAll = <T>(): Promise<T> => {
     }) as Promise<T>;
 };
 
-const create = <T>(): Promise<T> => {
-    const dateString = new Date().toLocaleString('ru', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-    });
-
+const create = <T>(name: string, templateID: string | number): Promise<T> => {
     return createPostRequest('/documents/create', {
-        name: `Документ от ${dateString}`,
-        template_id: 2,
+        name,
+        template_id: templateID,
     }).then((data) => {
         return data.data;
     }) as Promise<T>;

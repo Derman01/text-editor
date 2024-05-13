@@ -15,12 +15,22 @@ import { ScrollContainer } from 'entities/scroll';
 import { More, MoreProps } from 'entities/menu';
 import CreatingForm from './CreatingForm';
 
-const TemplateList = function (): JSX.Element {
+const TemplateList = function ({
+    onSelectHandler,
+    showAll,
+    isShowAction = true,
+}: {
+    showAll?: boolean;
+    onSelectHandler?: (item: TypeItem) => void;
+    isShowAction?: boolean;
+}): JSX.Element {
     const [items, setItems] = useState<TypeItem[]>([]);
+    const [selectedItem, setSelectedItem] = useState<TypeItem>(null);
     const popupRef = createRef();
 
     useLayoutEffect(() => {
-        api.templates.getUsers<TypeItem[]>().then((items) => {
+        const promise = showAll ? api.templates.getAll : api.templates.getUsers;
+        promise<TypeItem[]>().then((items) => {
             setItems(items.reverse());
         });
     }, []);
@@ -40,6 +50,13 @@ const TemplateList = function (): JSX.Element {
         }
     }, []);
 
+    const onItemSelect = (item: TypeItem) => {
+        if (onSelectHandler) {
+            setSelectedItem(item);
+            onSelectHandler(item);
+        }
+    };
+
     return (
         <Box
             sx={{
@@ -55,15 +72,24 @@ const TemplateList = function (): JSX.Element {
                 justifyContent={'space-between'}
             >
                 <Typography variant="h6">Шаблоны</Typography>
-                <IconButton onClick={onAddClickHandler}>
-                    <AddIcon />
-                </IconButton>
+                {isShowAction && (
+                    <IconButton onClick={onAddClickHandler}>
+                        <AddIcon />
+                    </IconButton>
+                )}
             </Box>
             <Divider orientation="horizontal" />
             <ScrollContainer>
                 <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
                     {items.map((item) => (
-                        <Item actionHandler={actionHandler} key={item.id} item={item} />
+                        <Item
+                            selected={selectedItem === item}
+                            selectHandler={onItemSelect}
+                            actionHandler={actionHandler}
+                            isShowAction={isShowAction}
+                            key={item.id}
+                            item={item}
+                        />
                     ))}
                 </List>
             </ScrollContainer>
@@ -86,7 +112,13 @@ const TemplateList = function (): JSX.Element {
 const Item = function ({
     item,
     actionHandler,
+    isShowAction,
+    selectHandler,
+    selected,
 }: {
+    selected: boolean;
+    selectHandler: (item: TypeItem) => void;
+    isShowAction: boolean;
     item: TypeItem;
     actionHandler: (item: TypeItem, action: MoreProps['items'][0]) => void;
 }): JSX.Element {
@@ -95,9 +127,16 @@ const Item = function ({
     };
 
     return (
-        <ListItemButton key={item.id} alignItems="flex-start">
+        <ListItemButton
+            key={item.id}
+            alignItems="flex-start"
+            onClick={() => {
+                selectHandler(item);
+            }}
+            selected={selected}
+        >
             <ListItemText primary={item.name} />
-            <More actionHandler={handler} items={moreMenuItems} />
+            {isShowAction && <More actionHandler={handler} items={moreMenuItems} />}
         </ListItemButton>
     );
 };
