@@ -1,8 +1,10 @@
 import { ObjectType } from 'shared/types/meta';
-import { TextStyleMeta } from './TextStyleMeta';
+import { TextStyleMeta } from './textStyle/TextStyleMeta';
+import { TitleRuleMeta } from './titleRules/TitleRulesMeta';
 
 const HeadingMeta = ObjectType.id('heading1').title('Заголовок 1').attributes({
     textStyle: TextStyleMeta,
+    rules: TitleRuleMeta,
 });
 
 export const HeadingMeta1 = HeadingMeta.id('h1').title('Заголовок 1');

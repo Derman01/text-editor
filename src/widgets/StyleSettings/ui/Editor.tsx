@@ -34,7 +34,7 @@ const Editor = function (props: IProps): JSX.Element {
     );
 
     return (
-        <Box display={'grid'} gridTemplateColumns={'1fr 1fr'}>
+        <Box display={'grid'} gridTemplateColumns={'1fr 1fr'} alignItems={'baseline'}>
             {attrsArray.map((attr) => {
                 if (attr.meta.getType() === 'object') {
                     return (

@@ -1,5 +1,10 @@
 import { CSSProperties, createContext, useCallback, useContext, useMemo, useState } from 'react';
-import { IParagraphData, ITemplateData } from 'shared/types/template';
+import {
+    IParagraphData,
+    ITemplateData,
+    ITextStyleInterface,
+    ITitleData,
+} from 'shared/types/template';
 import './style.css';
 import { api } from 'shared/api';
 import { IBaseData } from 'shared/types/template/model/base';
@@ -66,25 +71,27 @@ const TemplateProvider = function ({
     );
 
     const styles: CSSProperties = useMemo(() => {
-        const getStyleWidget = (key: keyof IParagraphData) => {
-            return {
-                [`--widget-${key}-fontSize`]: `${state[key].textStyle.rules.size}pt`,
-                [`--widget-${key}-alignment`]: `${state[key].textStyle.rules.alignment}`,
-                [`--widget-${key}-fontFamily`]: `${state[key].textStyle.rules.font}`,
-                [`--widget-${key}-fontBold`]: state[key].textStyle.rules.bold ? 'bold' : 'normal',
-                // [`--widget-${key}-textTransform`]: state[key]..capitalisation ? 'uppercase' : 'none',
-            };
-        };
+        const widgetsTextStyle = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p'];
+        const widgetsTitle = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
 
-        const { h1, h2, h3, h4, h5, h6, p } = state;
-        const widgets = { h1, h2, h3, h4, h5, h6, p };
-
-        return Object.keys(widgets).reduce((old, key) => {
+        const widgetTextStyleProperties = widgetsTextStyle.reduce((old, key) => {
             return {
                 ...old,
-                ...getStyleWidget(key as keyof IParagraphData),
+                ...getTextStyleProperties(state, key as keyof ISettings),
             };
         }, {}) as CSSProperties;
+
+        const widgetTitleProperties = widgetsTitle.reduce((old, key) => {
+            return {
+                ...old,
+                ...getTitleRulesProperties(state, key as keyof ISettings),
+            };
+        }, {}) as CSSProperties;
+
+        return {
+            ...widgetTextStyleProperties,
+            ...widgetTitleProperties,
+        };
     }, [state]);
 
     return (
@@ -114,4 +121,21 @@ const getValueMeta = (data: ITemplateData): ISettings => {
     };
 
     return settings;
+};
+
+const getTextStyleProperties = (state: ISettings, key: keyof ISettings) => {
+    const value = state[key] as ITextStyleInterface;
+    return {
+        [`--widget-${key}-fontSize`]: `${value.textStyle.rules.size}pt`,
+        [`--widget-${key}-alignment`]: `${value.textStyle.rules.alignment}`,
+        [`--widget-${key}-fontFamily`]: `${value.textStyle.rules.font}`,
+        [`--widget-${key}-fontBold`]: value.textStyle.rules.bold ? 'bold' : 'normal',
+    };
+};
+
+const getTitleRulesProperties = (state: ISettings, key: keyof ISettings) => {
+    const value = state[key] as ITitleData;
+    return {
+        [`--widget-${key}-textTransform`]: value.rules.capitalisation ? 'capitalize' : 'none',
+    };
 };
