@@ -15,7 +15,7 @@ const create = <T>(): Promise<T> => {
 
     return createPostRequest('/documents/create', {
         name: `Документ от ${dateString}`,
-        template_id: 1,
+        template_id: 2,
     }).then((data) => {
         return data.data;
     }) as Promise<T>;
