@@ -1,9 +1,26 @@
+.widget-page {
+   padding-left: var(--page-field-left);
+   padding-top: var(--page-field-top);
+   padding-right: var(--page-field-right);
+   padding-bottom: var(--page-field-bottom);
+}
+
+.widget-p {
+   font-size: var(--widget-p-fontSize);
+   text-align: var(--widget-p-alignment);
+   font-family: var(--widget-p-fontFamily);
+   font-weight: var(--widget-p-fontBold);
+   text-transform: var(--widget-p-textTransform);
+   text-indent: var(--widget-p-indent);
+}
+
 .widget-h1 {
    font-size: var(--widget-h1-fontSize);
    text-align: var(--widget-h1-alignment);
    font-family: var(--widget-h1-fontFamily);
    font-weight: var(--widget-h1-fontBold);
    text-transform: var(--widget-h1-textTransform);
+   text-indent: var(--widget-h1-indent);
 }
 
 .widget-h2 {
@@ -12,6 +29,7 @@
    font-family: var(--widget-h2-fontFamily);
    font-weight: var(--widget-h2-fontBold);
    text-transform: var(--widget-h2-textTransform);
+   text-indent: var(--widget-h2-indent);
 }
 .widget-h3 {
    font-size: var(--widget-h3-fontSize);
@@ -19,6 +37,7 @@
    font-family: var(--widget-h3-fontFamily);
    font-weight: var(--widget-h3-fontBold);
    text-transform: var(--widget-h3-textTransform);
+   text-indent: var(--widget-h3-indent);
 }
 .widget-h4 {
    font-size: var(--widget-h4-fontSize);
@@ -26,6 +45,7 @@
    font-family: var(--widget-h4-fontFamily);
    font-weight: var(--widget-h4-fontBold);
    text-transform: var(--widget-h4-textTransform);
+   text-indent: var(--widget-h4-indent);
 }
 .widget-h5 {
    font-size: var(--widget-h5-fontSize);
@@ -33,6 +53,7 @@
    font-family: var(--widget-h5-fontFamily);
    font-weight: var(--widget-h5-fontBold);
    text-transform: var(--widget-h5-textTransform);
+   text-indent: var(--widget-h5-indent);
 }
 .widget-h6 {
    font-size: var(--widget-h5-fontSize);
@@ -40,4 +61,5 @@
    font-family: var(--widget-h5-fontFamily);
    font-weight: var(--widget-h5-fontBold);
    text-transform: var(--widget-h5-textTransform);
+   text-indent: var(--widget-h6-indent);
 }

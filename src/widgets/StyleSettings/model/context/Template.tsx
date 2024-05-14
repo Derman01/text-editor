@@ -1,34 +1,39 @@
 import { CSSProperties, createContext, useCallback, useContext, useMemo, useState } from 'react';
-import {
-    IParagraphData,
-    ITemplateData,
-    ITextStyleInterface,
-    ITitleData,
-} from 'shared/types/template';
+import { ITemplateData, ITextStyleInterface, ITitleData } from 'shared/types/template';
 import './style.css';
 import { api } from 'shared/api';
 import { IBaseData } from 'shared/types/template/model/base';
 import { DEFAULT_SETTINGS, ISettings, convertFormatRequest } from './const';
 import { convertCamelCaseToPep } from 'shared/lib/converter';
+import { getStyleFromSettings } from './styleSettings';
+import { convertForRequestText, convertFromRequestText } from './convertFromRequest';
 
 export interface ITemplateContext {
     info: IBaseData;
     template: ISettings;
     update: (newTemplate: Partial<ITemplateData>) => void;
     updateInfo: (newInfo: Partial<IBaseData>) => void;
-    save: () => void;
+    saveTemplate: () => void;
+    saveDocument: () => void;
+    updateText: (data: object[]) => void;
+    text: object[];
 }
 
 const TemplateContext = createContext<ITemplateContext>({});
 
 const TemplateProvider = function ({
+    documentID,
     children,
     template,
+    text,
 }: {
+    documentID?: string | number;
     children: JSX.Element;
     template: ITemplateData;
+    text: object[];
 }): JSX.Element {
     const [state, updateState] = useState(getValueMeta(template));
+    const [textState, setTextState] = useState(convertFromRequestText(text));
     const [info, setInfo] = useState<IBaseData>({
         id: template.id,
         name: template.name,
@@ -51,7 +56,7 @@ const TemplateProvider = function ({
         [updateState]
     );
 
-    const save = () => {
+    const saveTemplate = () => {
         api.templates.update(info.id, {
             ...convertCamelCaseToPep(template),
             ...info,
@@ -59,39 +64,26 @@ const TemplateProvider = function ({
         });
     };
 
+    const saveDocument = () => {
+        api.documents.saveData(documentID, convertForRequestText(textState));
+    };
+
     const value: ITemplateContext = useMemo(
         () => ({
             template: state,
             update,
-            save,
+            saveTemplate,
             info,
             updateInfo,
+            text: textState,
+            updateText: setTextState,
+            saveDocument,
         }),
-        [state, info, update, updateInfo]
+        [state, info, update, updateInfo, textState]
     );
 
     const styles: CSSProperties = useMemo(() => {
-        const widgetsTextStyle = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p'];
-        const widgetsTitle = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
-
-        const widgetTextStyleProperties = widgetsTextStyle.reduce((old, key) => {
-            return {
-                ...old,
-                ...getTextStyleProperties(state, key as keyof ISettings),
-            };
-        }, {}) as CSSProperties;
-
-        const widgetTitleProperties = widgetsTitle.reduce((old, key) => {
-            return {
-                ...old,
-                ...getTitleRulesProperties(state, key as keyof ISettings),
-            };
-        }, {}) as CSSProperties;
-
-        return {
-            ...widgetTextStyleProperties,
-            ...widgetTitleProperties,
-        };
+        return getStyleFromSettings(state);
     }, [state]);
 
     return (
@@ -106,7 +98,7 @@ const useTemplateContext = () => useContext(TemplateContext);
 export { TemplateProvider, useTemplateContext };
 
 const getValueMeta = (data: ITemplateData): ISettings => {
-    const { titles, paragraph } = data;
+    const { titles, paragraph, page } = data;
     const settingsTitles = titles.reduce((old, current) => {
         return {
             ...old,
@@ -118,24 +110,8 @@ const getValueMeta = (data: ITemplateData): ISettings => {
         ...DEFAULT_SETTINGS,
         ...settingsTitles,
         p: paragraph,
+        page,
     };
 
     return settings;
-};
-
-const getTextStyleProperties = (state: ISettings, key: keyof ISettings) => {
-    const value = state[key] as ITextStyleInterface;
-    return {
-        [`--widget-${key}-fontSize`]: `${value.textStyle.rules.size}pt`,
-        [`--widget-${key}-alignment`]: `${value.textStyle.rules.alignment}`,
-        [`--widget-${key}-fontFamily`]: `${value.textStyle.rules.font}`,
-        [`--widget-${key}-fontBold`]: value.textStyle.rules.bold ? 'bold' : 'normal',
-    };
-};
-
-const getTitleRulesProperties = (state: ISettings, key: keyof ISettings) => {
-    const value = state[key] as ITitleData;
-    return {
-        [`--widget-${key}-textTransform`]: value.rules.capitalisation ? 'capitalize' : 'none',
-    };
 };

@@ -2,7 +2,7 @@ import { Box, Button, Divider, Input, TextField, Typography } from '@mui/materia
 import { useTemplateContext } from 'widgets/StyleSettings';
 
 const Header = function (): JSX.Element {
-    const { save, info, update, updateInfo } = useTemplateContext();
+    const { saveTemplate: save, info, update, updateInfo } = useTemplateContext();
     return (
         <Box>
             <Box

@@ -466,7 +466,7 @@ export const DEFAULT_SETTINGS: ISettings = {
 
 export const convertFormatRequest = (data: ISettings): Partial<ITemplateData> => {
     return convertCamelCaseToPep({
-        page,
+        page: data.page,
         illustration,
         formula,
         table,

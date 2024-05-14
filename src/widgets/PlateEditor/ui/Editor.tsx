@@ -6,19 +6,16 @@ import { FixedToolbarButtons } from '@/components/plate-ui/fixed-toolbar-buttons
 import Box from '@mui/material/Box';
 import { useMemo } from 'react';
 import { initialValue } from '../model/initialValue';
+import { useTemplateContext } from 'widgets/StyleSettings';
 
 export function PlateEditor() {
+    const { text, updateText } = useTemplateContext();
     const value = useMemo(() => {
-        return JSON.parse(localStorage.getItem('initialValue') || JSON.stringify(initialValue));
+        return text && text.length ? text : initialValue;
     }, []);
 
-    const onChange = (value) => {
-        localStorage.setItem('initialValue', JSON.stringify(value));
-        console.log(value);
-    };
-
     return (
-        <Plate plugins={plugins} initialValue={value} onChange={onChange}>
+        <Plate plugins={plugins} initialValue={value} onChange={updateText}>
             <Box
                 display={'flex'}
                 flexDirection={'column'}
@@ -30,12 +27,12 @@ export function PlateEditor() {
                 </FixedToolbar>
                 <Box paddingBottom={'250px'}>
                     <Box
+                        className="widget-page"
                         sx={{
                             border: '1px solid grey',
                             height: 297 + 'mm',
                             width: 210 + 'mm',
                         }}
-                        padding={'20px'}
                     >
                         <Editor autoFocus />
                     </Box>

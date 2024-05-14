@@ -75,15 +75,19 @@ const DocumentList = function (): JSX.Element {
 };
 
 const Item = function ({ item }: { item: TypeItem }): JSX.Element {
-    const actionHandler: MoreProps['actionHandler'] = useCallback((action) => {
+    const actionHandler: MoreProps['actionHandler'] = useCallback(async (action) => {
         if (action.key === 'open') {
             window.open(`/constructor/${item.id}`);
+        }
+        if (action.key === 'import') {
+            await api.documents.makeDocx(item.id);
+            api.documents.download(item.id, item.name);
         }
     }, []);
 
     return (
         <ListItemButton key={item.id} alignItems="flex-start">
-            <ListItemText primary={item.name} secondary={'01.04.2024'} />
+            <ListItemText primary={item.name} />
             <More actionHandler={actionHandler} items={moreMenuItems} />
         </ListItemButton>
     );
@@ -102,34 +106,34 @@ const moreMenuItems: MoreProps['items'] = [
         title: 'Выгрузить в docx',
         handler: () => {},
     },
-    {
-        key: 'link',
-        title: 'Ссылка',
-        handler: () => {},
-    },
-    {
-        key: 'rights',
-        title: 'Доступ',
-        handler: () => {},
-    },
-    {
-        key: 'clone',
-        title: 'Дублировать',
-        handler: () => {},
-    },
-    {
-        key: 'select',
-        title: 'Выбрать несколько',
-        handler: () => {},
-    },
-    {
-        key: 'move',
-        title: 'Переместить',
-        handler: () => {},
-    },
-    {
-        key: 'delete',
-        title: 'Удалить',
-        handler: () => {},
-    },
+    // {
+    //     key: 'link',
+    //     title: 'Ссылка',
+    //     handler: () => {},
+    // },
+    // {
+    //     key: 'rights',
+    //     title: 'Доступ',
+    //     handler: () => {},
+    // },
+    // {
+    //     key: 'clone',
+    //     title: 'Дублировать',
+    //     handler: () => {},
+    // },
+    // {
+    //     key: 'select',
+    //     title: 'Выбрать несколько',
+    //     handler: () => {},
+    // },
+    // {
+    //     key: 'move',
+    //     title: 'Переместить',
+    //     handler: () => {},
+    // },
+    // {
+    //     key: 'delete',
+    //     title: 'Удалить',
+    //     handler: () => {},
+    // },
 ];

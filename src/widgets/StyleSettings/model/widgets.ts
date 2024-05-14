@@ -7,4 +7,5 @@ export {
     HeadingMeta6,
 } from './widgets/Heading';
 
+export { PageMeta } from './widgets/Page';
 export { ParagraphMeta } from './widgets/Paragraph';
