@@ -18,7 +18,7 @@ export const convertForRequestText = (text: object[]) => {
     });
 };
 
-export const convertFromRequestText = (text: object[]) => {
+export const convertFromRequestText = (text: object[] = []) => {
     return text.map((block) => {
         if (block.type === 'heading') {
             const depth = block.children[0].depth;

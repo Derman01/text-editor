@@ -10,12 +10,7 @@ import { AuthProvider } from 'shared/providers/auth';
 import { TooltipProvider } from '@/components/plate-ui/tooltip';
 
 const pageConfigs = Object.entries(PAGE_CONFIGS).map(([_, config]) => config);
-const titlePages = Object.entries(PAGE_CONFIGS).reduce((prev, [_, config]) => {
-    return {
-        ...prev,
-        [config.path.split('/')[0]]: config.title,
-    };
-}, {});
+
 
 const router = createBrowserRouter(pageConfigs);
 

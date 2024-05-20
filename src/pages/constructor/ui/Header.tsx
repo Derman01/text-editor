@@ -25,7 +25,9 @@ const Header = function ({ name }: { name: string }): JSX.Element {
                 gridTemplateColumns={'1fr auto 1fr'}
             >
                 <TabContext value={selectedTabId}>
-                    <Typography variant="h5">{name}</Typography>
+                    <Typography marginLeft={1} variant="h5">
+                        Конструктор документа: {info.name}
+                    </Typography>
                     <TabList className={classes.switcher} onChange={changeSelectedTabId}>
                         {config.map((config) => {
                             return <Tab key={config.key} label={config.label} value={config.key} />;
