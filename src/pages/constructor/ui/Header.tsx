@@ -15,30 +15,41 @@ const Header = function ({ name }: { name: string }): JSX.Element {
     };
     return (
         <Box>
-            <Box
-                className={classes.header}
-                position={'sticky'}
-                display={'grid'}
-                flexDirection={'row'}
-                paddingLeft={2}
-                paddingRight={2}
-                alignItems={'center'}
-                gridTemplateColumns={'1fr auto 1fr'}
-            >
-                <TabContext value={selectedTabId}>
-                    <Typography marginLeft={1} variant="h5">
+            <Box display={'flex'} width={'100%'} flexDirection={'column'}>
+                <Box
+                    sx={{
+                        background: '#999',
+                    }}
+                >
+                    <Typography marginLeft={1} color={'white'} variant="h5" padding={1}>
                         Конструктор документа: {name}
                     </Typography>
-                    <TabList className={classes.switcher} onChange={changeSelectedTabId}>
-                        {config.map((config) => {
-                            return <Tab key={config.key} label={config.label} value={config.key} />;
-                        })}
-                    </TabList>
-                    <Box display={'flex'} justifyContent={'flex-end'} alignItems={'center'}>
-                        <Button onClick={downloadDocument}>Скачать</Button>
-                        <Button onClick={save}>Сохранить</Button>
-                    </Box>
-                </TabContext>
+                </Box>
+                <Box
+                    className={classes.header}
+                    position={'sticky'}
+                    display={'grid'}
+                    flexDirection={'row'}
+                    paddingLeft={2}
+                    paddingRight={2}
+                    alignItems={'center'}
+                    gridTemplateColumns={'1fr auto 1fr'}
+                >
+                    <TabContext value={selectedTabId}>
+                        <Typography marginLeft={1} variant="h5"></Typography>
+                        <TabList className={classes.switcher} onChange={changeSelectedTabId}>
+                            {config.map((config) => {
+                                return (
+                                    <Tab key={config.key} label={config.label} value={config.key} />
+                                );
+                            })}
+                        </TabList>
+                        <Box display={'flex'} justifyContent={'flex-end'} alignItems={'center'}>
+                            <Button onClick={downloadDocument}>Скачать</Button>
+                            <Button onClick={save}>Сохранить</Button>
+                        </Box>
+                    </TabContext>
+                </Box>
             </Box>
             <Divider />
         </Box>

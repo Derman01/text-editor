@@ -17,6 +17,9 @@ export function PlateEditor() {
     return (
         <Plate plugins={plugins} initialValue={value} onChange={updateText}>
             <Box
+                sx={{
+                    backgroundColor: '#eee',
+                }}
                 display={'flex'}
                 flexDirection={'column'}
                 justifyContent={'center'}
@@ -29,6 +32,7 @@ export function PlateEditor() {
                     <Box
                         className="widget-page"
                         sx={{
+                            background: '#fff',
                             border: '1px solid grey',
                             height: 297 + 'mm',
                             width: 210 + 'mm',

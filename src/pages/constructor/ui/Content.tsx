@@ -9,7 +9,7 @@ const Content = function (): JSX.Element {
         <TabContext value={selectedTabId}>
             {config.map(({ Control, key }) => {
                 return (
-                    <TabPanel className={classes.content} key={key} value={key}>
+                    <TabPanel sx={{ padding: 0 }} className={classes.content} key={key} value={key}>
                         <Box overflow={'scroll'} height={'100%'}>
                             {<Control />}
                         </Box>
