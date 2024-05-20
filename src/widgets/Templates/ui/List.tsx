@@ -54,6 +54,8 @@ const TemplateList = function ({
         if (onSelectHandler) {
             setSelectedItem(item);
             onSelectHandler(item);
+        } else {
+            window.open(`/template/${item.id}`);
         }
     };
 

@@ -25,13 +25,16 @@ const More = function (props: Props): JSX.Element {
         setAnchorEl(null);
     };
 
-    const onItemClick = useCallback((item: Item) => {
-        handleClose();
-        props.actionHandler(item);
-    }, [props.actionHandler]);
+    const onItemClick = useCallback(
+        (item: Item) => {
+            handleClose();
+            props.actionHandler(item);
+        },
+        [props.actionHandler]
+    );
 
     return (
-        <div>
+        <div onClick={(e) => e.stopPropagation()}>
             <IconButton onClick={onMoreOptionsClick}>
                 <MoreVertIcon />
             </IconButton>

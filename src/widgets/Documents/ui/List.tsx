@@ -53,7 +53,7 @@ const DocumentList = function (): JSX.Element {
             <ScrollContainer>
                 <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
                     {items.map((item) => (
-                        <Item item={item} />
+                        <Item key={item.id} item={item} />
                     ))}
                 </List>
             </ScrollContainer>
@@ -86,7 +86,12 @@ const Item = function ({ item }: { item: TypeItem }): JSX.Element {
     }, []);
 
     return (
-        <ListItemButton key={item.id} alignItems="flex-start">
+        <ListItemButton
+            onClick={() => {
+                window.open(`/constructor/${item.id}`);
+            }}
+            alignItems="flex-start"
+        >
             <ListItemText primary={item.name} />
             <More actionHandler={actionHandler} items={moreMenuItems} />
         </ListItemButton>
