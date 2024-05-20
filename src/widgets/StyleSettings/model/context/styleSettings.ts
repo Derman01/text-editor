@@ -37,6 +37,7 @@ const getTextStyleProperties = (state: ISettings, key: keyof ISettings) => {
         [`--widget-${key}-fontFamily`]: `${value.textStyle.rules.font}`,
         [`--widget-${key}-fontBold`]: value.textStyle.rules.bold ? 'bold' : 'normal',
         [`--widget-${key}-indent`]: value.textStyle.rules.indent + 'cm',
+        [`--widget-${key}-line-height`]: value.textStyle.rules.lineSpacing * 100  +'%'
     };
 };
 

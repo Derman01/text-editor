@@ -1,0 +1,41 @@
+@mixin text-style-generate($name) {
+   font-size: var(--widget-#{$name}-fontSize);
+   font-size: var(--widget-#{$name}-fontSize);
+   text-align: var(--widget-#{$name}-alignment) !important;
+   font-family: var(--widget-#{$name}-fontFamily);
+   font-weight: var(--widget-#{$name}-fontBold);
+   text-transform: var(--widget-#{$name}-textTransform);
+   text-indent: var(--widget-#{$name}-indent);
+   line-height: var(--widget-#{$name}-line-height) !important;
+}
+
+.widget-page {
+   padding-left: var(--page-field-left);
+   padding-top: var(--page-field-top);
+   padding-right: var(--page-field-right);
+   padding-bottom: var(--page-field-bottom);
+}
+
+.widget-p {
+   @include text-style-generate(p)
+}
+
+.widget-h1 {
+   @include text-style-generate(h1)
+}
+
+.widget-h2 {
+   @include text-style-generate(h2)
+}
+.widget-h3 {
+   @include text-style-generate(h3)
+}
+.widget-h4 {
+   @include text-style-generate(h4)
+}
+.widget-h5 {
+   @include text-style-generate(h5)
+}
+.widget-h6 {
+   @include text-style-generate(h6)
+}

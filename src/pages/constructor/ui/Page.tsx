@@ -29,7 +29,12 @@ const Page = function () {
     }
 
     return (
-        <TemplateProvider template={documentInfo.template} text={text} documentID={documentInfo.id}>
+        <TemplateProvider
+            template={documentInfo.template}
+            text={text}
+            documentID={documentInfo.id}
+            documentName={documentInfo.name}
+        >
             <TabProvider>
                 <Box
                     height={'100%'}

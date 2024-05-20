@@ -1,6 +1,6 @@
 import { CSSProperties, createContext, useCallback, useContext, useMemo, useState } from 'react';
 import { ITemplateData, ITextStyleInterface, ITitleData } from 'shared/types/template';
-import './style.css';
+import './style.scss';
 import { api } from 'shared/api';
 import { IBaseData } from 'shared/types/template/model/base';
 import { DEFAULT_SETTINGS, ISettings, convertFormatRequest } from './const';
@@ -17,6 +17,7 @@ export interface ITemplateContext {
     saveDocument: () => void;
     updateText: (data: object[]) => void;
     text: object[];
+    downloadDocument: () => void;
 }
 
 const TemplateContext = createContext<ITemplateContext>({});
@@ -26,11 +27,13 @@ const TemplateProvider = function ({
     children,
     template,
     text,
+    documentName,
 }: {
     documentID?: string | number;
     children: JSX.Element;
     template: ITemplateData;
     text: object[];
+    documentName?: string;
 }): JSX.Element {
     const [state, updateState] = useState(getValueMeta(template));
     const [textState, setTextState] = useState(convertFromRequestText(text));
@@ -68,6 +71,11 @@ const TemplateProvider = function ({
         api.documents.saveData(documentID, convertForRequestText(textState));
     };
 
+    const downloadDocument = async () => {
+        await api.documents.makeDocx(documentID);
+        api.documents.download(documentID, documentName);
+    };
+
     const value: ITemplateContext = useMemo(
         () => ({
             template: state,
@@ -78,6 +86,7 @@ const TemplateProvider = function ({
             text: textState,
             updateText: setTextState,
             saveDocument,
+            downloadDocument,
         }),
         [state, info, update, updateInfo, textState]
     );

@@ -3,10 +3,11 @@ import { Box, Button, Divider, IconButton, Tab, Typography } from '@mui/material
 import { useTabContext } from '../model/context/Tab';
 import classes from './styles/Header.module.scss';
 import { useTemplateContext } from 'widgets/StyleSettings';
+import { api } from 'shared/api';
 
 const Header = function ({ name }: { name: string }): JSX.Element {
     const { config, selectedTabId, changeSelectedTabId } = useTabContext();
-    const { saveTemplate, saveDocument, info } = useTemplateContext();
+    const { saveTemplate, saveDocument, downloadDocument } = useTemplateContext();
 
     const save = () => {
         saveTemplate();
@@ -34,6 +35,7 @@ const Header = function ({ name }: { name: string }): JSX.Element {
                         })}
                     </TabList>
                     <Box display={'flex'} justifyContent={'flex-end'} alignItems={'center'}>
+                        <Button onClick={downloadDocument}>Скачать</Button>
                         <Button onClick={save}>Сохранить</Button>
                     </Box>
                 </TabContext>

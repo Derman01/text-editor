@@ -18,6 +18,11 @@ export const AlignmentMeta = StringType.id('string')
                     title: 'По центру',
                 },
                 {
+                    id: 'justify',
+                    value: 'justify',
+                    title: 'По ширине',
+                },
+                {
                     id: 'right',
                     value: 'right',
                     title: 'Справа',
