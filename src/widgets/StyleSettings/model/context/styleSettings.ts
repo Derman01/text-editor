@@ -49,9 +49,9 @@ const getTitleRulesProperties = (state: ISettings, key: keyof ISettings) => {
 
 const getPageProperties = (pageSettings: ISettings['page']) => {
     return {
-        [`--page-field-left`]: pageSettings.fields.left + 'mm',
-        [`--page-field-right`]: pageSettings.fields.right + 'mm',
-        [`--page-field-top`]: pageSettings.fields.up + 'mm',
-        [`--page-field-bottom`]: pageSettings.fields.down + 'mm',
+        [`--page-field-left`]: pageSettings.fields.left + 'cm',
+        [`--page-field-right`]: pageSettings.fields.right + 'cm',
+        [`--page-field-top`]: pageSettings.fields.up + 'cm',
+        [`--page-field-bottom`]: pageSettings.fields.down + 'cm',
     };
 };
