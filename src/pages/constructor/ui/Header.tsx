@@ -26,7 +26,7 @@ const Header = function ({ name }: { name: string }): JSX.Element {
             >
                 <TabContext value={selectedTabId}>
                     <Typography marginLeft={1} variant="h5">
-                        Конструктор документа: {info.name}
+                        Конструктор документа: {name}
                     </Typography>
                     <TabList className={classes.switcher} onChange={changeSelectedTabId}>
                         {config.map((config) => {

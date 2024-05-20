@@ -48,7 +48,10 @@ function FormDialog(props: { creatingHandler: (item: TypeItem) => void }, ref) {
                             .create<{ template: TypeItem }>(name, selectedItem.id)
                             .then(({ template }) => {
                                 api.documents.saveData(template.id, []);
-                                props.creatingHandler(template);
+                                props.creatingHandler({
+                                    ...template,
+                                    name,
+                                });
                             });
                         handleClose();
                     },
