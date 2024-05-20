@@ -1520,6 +1520,11 @@ body {
           user-select: none;
 }
 
+.before\:border-2::before {
+  content: var(--tw-content);
+  border-width: 2px;
+}
+
 .before\:border-b::before {
   content: var(--tw-content);
   border-bottom-width: 1px;
@@ -1543,6 +1548,12 @@ body {
 .before\:border-none::before {
   content: var(--tw-content);
   border-style: none;
+}
+
+.before\:border-black::before {
+  content: var(--tw-content);
+  --tw-border-opacity: 1;
+  border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 
 .before\:border-b-border::before {

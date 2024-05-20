@@ -204,7 +204,7 @@ export const TableElement = withHOC(
 
     return (
       <TableFloatingToolbar>
-        <div style={{ paddingLeft: marginLeft }}>
+        <div style={{ paddingLeft: marginLeft, marginRight: '1px' }}>
           <PlateElement
             ref={ref}
             asChild
