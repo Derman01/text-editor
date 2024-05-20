@@ -16,6 +16,18 @@
    padding-bottom: var(--page-field-bottom);
 }
 
+.widget-list {
+   @include text-style-generate(p);
+   text-indent: 0 !important;
+   padding-inline-start: calc(var(--widget-p-indent) / 2 + 19px);
+}
+
+.widget-list-element {
+   @include text-style-generate(p);
+   text-indent: 0 !important;
+   padding-inline-start: calc(var(--widget-p-indent) / 2 - 19px);
+}
+
 .widget-p {
    @include text-style-generate(p)
 }

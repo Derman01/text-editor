@@ -3,11 +3,12 @@ import { withRef, withVariants } from '@udecode/cn';
 import { PlateElement } from '@udecode/plate-common';
 import { cva } from 'class-variance-authority';
 
-const listVariants = cva('m-0 ps-6', {
+const listVariants = cva('m-0 widget-list', {
   variants: {
     variant: {
-      ul: 'list-disc [&_ul]:list-[circle] [&_ul_ul]:list-[square] widget-p',
-      ol: 'list-decimal widget-p',
+      ul: 'list-disc [&_ul]:list-[circle] [&_ul_ul]:list-[square]',
+      ol: 'list-decimal',
+      li: 'widget-list-element',
     },
   },
 });

@@ -104,7 +104,7 @@ export const plugins = createPlugins(
             [ELEMENT_TH]: TableCellHeaderElement,
             [ELEMENT_UL]: withProps(ListElement, { variant: 'ul' }),
             [ELEMENT_OL]: withProps(ListElement, { variant: 'ol' }),
-            [ELEMENT_LI]: withProps(PlateElement, { as: 'li' }),
+            [ELEMENT_LI]: withProps(PlateElement, { as: 'li', className: 'widget-list-element' }),
             [MARK_BOLD]: withProps(PlateLeaf, { as: 'strong' }),
             [MARK_ITALIC]: withProps(PlateLeaf, { as: 'em' }),
             [MARK_UNDERLINE]: withProps(PlateLeaf, { as: 'u' }),
