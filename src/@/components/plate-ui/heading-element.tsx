@@ -41,7 +41,9 @@ export const HeadingElement = withRef<typeof HeadingElementVariants>(
                 isFirstBlock={element === editor.children[0]}
                 {...props}
             >
-                <Element className={'widget-' + variant}>{children}</Element>
+                <Element className={'widget-' + variant}>
+                    <span className={'widget-' + variant + '-children'}>{children}</span>
+                </Element>
             </HeadingElementVariants>
         );
     }
