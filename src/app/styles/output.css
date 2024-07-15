@@ -1276,10 +1276,6 @@ body {
   padding-right: 0.75rem;
 }
 
-.ps-6 {
-  padding-inline-start: 1.5rem;
-}
-
 .text-left {
   text-align: left;
 }
@@ -1518,11 +1514,6 @@ body {
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
-}
-
-.before\:border-2::before {
-  content: var(--tw-content);
-  border-width: 2px;
 }
 
 .before\:border-b::before {

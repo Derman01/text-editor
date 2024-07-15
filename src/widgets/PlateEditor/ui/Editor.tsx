@@ -34,8 +34,8 @@ export function PlateEditor() {
                         sx={{
                             background: '#fff',
                             border: '1px solid grey',
-                            height: 297 + 'mm',
                             width: 210 + 'mm',
+                            minHeight: 300 + 'mm',
                         }}
                     >
                         <Editor autoFocus />

@@ -1,4 +1,10 @@
+@mixin text-style-generate-children($name) {
+   position: relative;
+   top: var(--widget-#{$name}-children-top) !important;
+}
+
 @mixin text-style-generate($name) {
+   position: relative;
    font-size: var(--widget-#{$name}-fontSize);
    font-size: var(--widget-#{$name}-fontSize);
    text-align: var(--widget-#{$name}-alignment) !important;
@@ -7,6 +13,14 @@
    text-transform: var(--widget-#{$name}-textTransform);
    text-indent: var(--widget-#{$name}-indent);
    line-height: var(--widget-#{$name}-line-height) !important;
+
+   &::before {
+      @include text-style-generate-children($name);
+   }
+
+   &-children {
+      @include text-style-generate-children($name)
+   }
 }
 
 .widget-page {
